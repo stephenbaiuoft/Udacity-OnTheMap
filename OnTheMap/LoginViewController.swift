@@ -8,8 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class LoginViewController: UIViewController {
+    
+    // MARK: IBOutlets
+    
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var udacityLoginButton: UIButton!
+    
+    @IBOutlet weak var facebookLoginButton: UIButton!
+    
+    
+    // MARK: Properties
+    var session: URLSession!
+    
+    
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

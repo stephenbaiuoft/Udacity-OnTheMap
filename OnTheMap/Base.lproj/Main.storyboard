@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +21,88 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmU-Ha-VG1" userLabel="Udacity Login Label">
+                                <rect key="frame" x="20" y="200" width="335" height="46.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jTP-dQ-FIP" userLabel="Email TBox">
+                                <rect key="frame" x="20" y="276.5" width="335" height="46.5"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nmg-9f-XMP" userLabel="Password TBox">
+                                <rect key="frame" x="20" y="343" width="335" height="46.5"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SoZ-5h-dPa" userLabel="Udacity Login Button">
+                                <rect key="frame" x="20" y="409.5" width="335" height="46.5"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w9s-T2-41l" userLabel="Facebook Login Button">
+                                <rect key="frame" x="20.5" y="588.5" width="335" height="46.5"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button" image="Facebook icon"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqY-SO-sUT" userLabel="Sign Up Label">
+                                <rect key="frame" x="20" y="486" width="335" height="47"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="w9s-T2-41l" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="2jz-pa-fd5"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="w9s-T2-41l" secondAttribute="bottom" multiplier="1.05" id="7Hh-NV-iIq"/>
+                            <constraint firstItem="jqY-SO-sUT" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="Dvl-w0-Eub"/>
+                            <constraint firstItem="SoZ-5h-dPa" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="J8J-3N-0lL"/>
+                            <constraint firstItem="SoZ-5h-dPa" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="Li6-aW-sHg"/>
+                            <constraint firstItem="jTP-dQ-FIP" firstAttribute="top" secondItem="DmU-Ha-VG1" secondAttribute="bottom" constant="30" id="Nxu-kC-iZu"/>
+                            <constraint firstItem="DmU-Ha-VG1" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="O1M-QX-W5Q"/>
+                            <constraint firstItem="DmU-Ha-VG1" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="SAN-bn-hi8"/>
+                            <constraint firstItem="jqY-SO-sUT" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="VBe-L5-7l7"/>
+                            <constraint firstItem="jTP-dQ-FIP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="VFL-de-nas"/>
+                            <constraint firstItem="DmU-Ha-VG1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" multiplier="10" id="Y51-pf-UfJ"/>
+                            <constraint firstItem="w9s-T2-41l" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="dmo-eZ-2X6"/>
+                            <constraint firstItem="jTP-dQ-FIP" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.07" id="eed-nw-GJY"/>
+                            <constraint firstItem="nmg-9f-XMP" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="j8D-8g-k0V"/>
+                            <constraint firstAttribute="trailing" secondItem="jTP-dQ-FIP" secondAttribute="trailing" constant="20" id="md8-MM-eka"/>
+                            <constraint firstItem="jqY-SO-sUT" firstAttribute="top" secondItem="SoZ-5h-dPa" secondAttribute="bottom" constant="30" id="mfW-zb-hjy"/>
+                            <constraint firstItem="DmU-Ha-VG1" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="ndc-i1-jsn"/>
+                            <constraint firstItem="SoZ-5h-dPa" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="qZs-ZH-guz"/>
+                            <constraint firstItem="nmg-9f-XMP" firstAttribute="top" secondItem="jTP-dQ-FIP" secondAttribute="bottom" constant="20" id="rai-FT-Z9A"/>
+                            <constraint firstItem="w9s-T2-41l" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="s0v-iX-3gw"/>
+                            <constraint firstItem="nmg-9f-XMP" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="uvQ-4b-P9g"/>
+                            <constraint firstItem="jqY-SO-sUT" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="vQc-fG-YiT"/>
+                            <constraint firstItem="SoZ-5h-dPa" firstAttribute="top" secondItem="nmg-9f-XMP" secondAttribute="bottom" constant="20" id="wcT-IM-HvO"/>
+                            <constraint firstItem="nmg-9f-XMP" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="z7E-6R-1bb"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="jTP-dQ-FIP" id="VC7-nv-aJO"/>
+                        <outlet property="facebookLoginButton" destination="w9s-T2-41l" id="Lb4-pt-DiP"/>
+                        <outlet property="passwordTextField" destination="nmg-9f-XMP" id="Bib-AW-wkg"/>
+                        <outlet property="udacityLoginButton" destination="SoZ-5h-dPa" id="66c-Kx-h55"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="100" y="71.514242878560722"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Facebook icon" width="988" height="160"/>
+    </resources>
 </document>
