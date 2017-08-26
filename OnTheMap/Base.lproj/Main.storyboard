@@ -33,14 +33,14 @@
                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nmg-9f-XMP" userLabel="Password TBox">
                                 <rect key="frame" x="20" y="343" width="335" height="46.5"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SoZ-5h-dPa" userLabel="Udacity Login Button">
                                 <rect key="frame" x="20" y="409.5" width="335" height="46.5"/>
@@ -49,11 +49,14 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginUdacity:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MS3-UG-Dk1"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w9s-T2-41l" userLabel="Facebook Login Button">
-                                <rect key="frame" x="20.5" y="588.5" width="335" height="46.5"/>
+                                <rect key="frame" x="20" y="588.5" width="335" height="46.5"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button" image="Facebook icon"/>
+                                <state key="normal" backgroundImage="Facebook icon"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqY-SO-sUT" userLabel="Sign Up Label">
                                 <rect key="frame" x="20" y="486" width="335" height="47"/>
@@ -94,6 +97,7 @@
                         <outlet property="emailTextField" destination="jTP-dQ-FIP" id="VC7-nv-aJO"/>
                         <outlet property="facebookLoginButton" destination="w9s-T2-41l" id="Lb4-pt-DiP"/>
                         <outlet property="passwordTextField" destination="nmg-9f-XMP" id="Bib-AW-wkg"/>
+                        <outlet property="udacityLabel" destination="DmU-Ha-VG1" id="ffW-WW-shY"/>
                         <outlet property="udacityLoginButton" destination="SoZ-5h-dPa" id="66c-Kx-h55"/>
                     </connections>
                 </viewController>

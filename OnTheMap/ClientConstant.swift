@@ -10,16 +10,24 @@ import Foundation
 
 extension Client{
     
-    struct UdacityConstant{
+    struct UResponseConstant{
         static let Account = "account"
         static let Registered = "registered"
         static let Key = "key"
         
         static let Session = "session"
         static let Id = "id"
-        
     }
     
+    struct ULoginConstant{
+        static let Udacity = "udacity"
+        static let Username = "username"
+        static let Password = "password"
+    }
+    
+    struct UdacityMethod{
+        static let UdacitySession = "https://www.udacity.com/api/session"
+    }
     
     struct ParseConstant{
         

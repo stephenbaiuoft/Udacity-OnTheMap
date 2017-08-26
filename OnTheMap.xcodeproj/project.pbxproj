@@ -17,6 +17,7 @@
 		DC322ED31F4F8A3F006FF50B /* BoarderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED21F4F8A3F006FF50B /* BoarderedButton.swift */; };
 		DC322ED61F4FAACC006FF50B /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED51F4FAACC006FF50B /* Client.swift */; };
 		DC322ED81F4FB24A006FF50B /* ClientConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED71F4FB24A006FF50B /* ClientConstant.swift */; };
+		DC322EDA1F4FD858006FF50B /* ClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED91F4FD858006FF50B /* ClientConvenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		DC322ED21F4F8A3F006FF50B /* BoarderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoarderedButton.swift; sourceTree = "<group>"; };
 		DC322ED51F4FAACC006FF50B /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		DC322ED71F4FB24A006FF50B /* ClientConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientConstant.swift; sourceTree = "<group>"; };
+		DC322ED91F4FD858006FF50B /* ClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientConvenience.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,10 +107,10 @@
 			children = (
 				DC322E5C1F4F8786006FF50B /* AppDelegate.swift */,
 				DC322E601F4F8786006FF50B /* Main.storyboard */,
-				DC322ED11F4F8A01006FF50B /* View */,
 				DC322E8B1F4F882E006FF50B /* Controller */,
 				DC322E8A1F4F87F0006FF50B /* Model */,
 				DC322E8D1F4F8856006FF50B /* Supporting File */,
+				DC322ED11F4F8A01006FF50B /* View */,
 				DC322E8C1F4F883B006FF50B /* Assets */,
 			);
 			path = OnTheMap;
@@ -176,6 +178,7 @@
 		DC322ED41F4FAA97006FF50B /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				DC322ED91F4FD858006FF50B /* ClientConvenience.swift */,
 				DC322ED51F4FAACC006FF50B /* Client.swift */,
 				DC322ED71F4FB24A006FF50B /* ClientConstant.swift */,
 			);
@@ -321,6 +324,7 @@
 			files = (
 				DC322ED81F4FB24A006FF50B /* ClientConstant.swift in Sources */,
 				DC322ED61F4FAACC006FF50B /* Client.swift in Sources */,
+				DC322EDA1F4FD858006FF50B /* ClientConvenience.swift in Sources */,
 				DC322E5F1F4F8786006FF50B /* LoginViewController.swift in Sources */,
 				DC322ED31F4F8A3F006FF50B /* BoarderedButton.swift in Sources */,
 				DC322E5D1F4F8786006FF50B /* AppDelegate.swift in Sources */,

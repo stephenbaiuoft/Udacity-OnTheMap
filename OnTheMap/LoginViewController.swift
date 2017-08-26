@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var udacityLoginButton: UIButton!
+    @IBOutlet weak var udacityLabel: UILabel!
     
     @IBOutlet weak var facebookLoginButton: UIButton!
     
@@ -28,6 +29,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        udacityLabel.adjustsFontSizeToFitWidth = true
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,6 +40,41 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: IBActions
+    @IBAction func loginUdacity(_ sender: AnyObject){
+        // Check the condition for login
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        
+        if ((email?.isEmpty)! || (password?.isEmpty)!){
+            udacityLabel.text = "Cannot Login: Email or Password is Empty"
+            
+        } else {
+            udacityLabel.text = "Logging"
+            Client.sharedInstance().loginAuthentication(email: email!, password: password!, completionHandlerForAuth: { (success, errorString) in
+                // success no
+                if( !success ){
+                    // now update the view using mainQueue
+                    DispatchQueue.main.async(execute: { 
+                        self.udacityLabel.text = errorString!
+                    })
+                }
+                else{
+                    DispatchQueue.main.async(execute: {
+                        self.udacityLabel.text = "Debug: Your credential is good"
+                    })
+                }
+            })
+       
+        }
+        // if true call loginAuthentication
+    }
+}
 
+extension LoginViewController: UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        // reset label text
+        udacityLabel.text = "Login to Udacity"
+    }
 }
 
