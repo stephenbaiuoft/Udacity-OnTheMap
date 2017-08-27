@@ -157,6 +157,9 @@
                         <barButtonItem key="leftBarButtonItem" image="icon_pin" id="DqX-Kp-xuU" userLabel="Pin Icon"/>
                         <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="Adm-aF-2gT" userLabel="Refresh Icon"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="sxY-Bw-Zlw" id="XLo-Az-4od"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hc-s9-ieO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

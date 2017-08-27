@@ -12,8 +12,8 @@ struct MapPin{
     
     let firstName: String
     let lastName: String
-    let latitude: Float
-    let longtitude: Float
+    let latitude: Double
+    let longtitude: Double
     let mapString: String
     let mediaURL: String
     let objectId: String
@@ -23,8 +23,8 @@ struct MapPin{
     init(studentLocation: [String: AnyObject]) {
         firstName = studentLocation[MapPin.PinConstant.FirstName] as? String ?? ""
         lastName = studentLocation[MapPin.PinConstant.LastName] as? String ?? ""
-        latitude = studentLocation[MapPin.PinConstant.Latitude] as? Float ?? 0.0
-        longtitude = studentLocation[MapPin.PinConstant.Longitude] as? Float ?? 0.0
+        latitude = studentLocation[MapPin.PinConstant.Latitude] as? Double ?? 0.0
+        longtitude = studentLocation[MapPin.PinConstant.Longitude] as? Double ?? 0.0
         mapString = studentLocation[MapPin.PinConstant.MapString] as? String ?? ""
 
         mediaURL = studentLocation[MapPin.PinConstant.MediaURL] as? String ?? ""

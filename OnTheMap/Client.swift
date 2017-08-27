@@ -54,7 +54,8 @@ class Client: NSObject{
                 return
             }
             
-            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForGetLocation)
+            // Do not chopData for getting mapLocation Info
+            self.convertDataWithCompletionHandler(false, data: data, completionHandlerForConvertData: completionHandlerForGetLocation)
             
         }
         
@@ -101,7 +102,7 @@ class Client: NSObject{
                 return
             }
             
-            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForPostToU)
+            self.convertDataWithCompletionHandler(true, data: data, completionHandlerForConvertData: completionHandlerForPostToU)
             
         }
         task.resume()
@@ -111,19 +112,24 @@ class Client: NSObject{
     
     // given raw JSON, return a usable Foundation object
     // No need to escape completionHandlerForConvertData as it is not used outside completionHandlerForConvertData!!!!
-    private func convertDataWithCompletionHandler(data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?)->Void) {
-        let range = Range(5..<data.count)
-        let newData = data.subdata(in: range)
+    private func convertDataWithCompletionHandler(_ chopData: Bool, data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?)->Void) {
+        var newData = data
+
+        if chopData {
+            let range = Range(5..<data.count)
+            newData = data.subdata(in: range)
+        }
+
         
         let parsedResult: AnyObject!
         do{
-            parsedResult = try JSONSerialization.jsonObject(with: newData, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject
+            parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as AnyObject
             
             print("debug: parsedJSON Result:", parsedResult)
             
             completionHandlerForConvertData(parsedResult, nil)
         } catch {
-            completionHandlerForConvertData(nil, NSError.init(domain: "convertDataWithCompletionHandler", code: 1, userInfo: [NSLocalizedDescriptionKey:"Failed to convert"]) )
+            completionHandlerForConvertData(nil, NSError.init(domain: "convertDataWithCompletionHandler", code: 1, userInfo: [NSLocalizedDescriptionKey:"Failed to convert to AnyObject?????"]) )
             return
         }
     }
