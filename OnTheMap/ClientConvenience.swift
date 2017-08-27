@@ -10,7 +10,6 @@ import Foundation
 
 // More Advanced Model Functions that build on Client
 extension Client{
-    // MARK: Build Singleton
     
     // begin the Udacity login authentication process
     // in this case, only 1 post request was need lolll, which is simpler

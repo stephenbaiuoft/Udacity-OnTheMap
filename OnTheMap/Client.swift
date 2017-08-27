@@ -14,7 +14,54 @@ class Client: NSObject{
     // shared session
     var session = URLSession.shared
     var sessionId: String? = nil
+    
+    var mapPins: [MapPin]? = nil
+    var clientMapPin: MapPin?
+    
+    
+    // Mark: method to get student location/locations information
+    // parameters: optional in terms of limit, skip, order
+    func taskForGetLocation(parameters: [String: String]?, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{
         
+        let parametersUrl = getLocationParameterString(parameters: parameters)
+        let urlString = ParseMethod.GetStudentLocation + parametersUrl
+        
+        var request = URLRequest.init(url: URL.init(string: urlString)!)
+        request.addValue(ParseConstantValue.ParseApplicationId, forHTTPHeaderField: ParseConstantKey.ParseApplicationId)
+        request.addValue(ParseConstantValue.RESTAPIKey, forHTTPHeaderField: ParseConstantKey.RESTAPIKey)
+        
+        let task = Client.sharedInstance().session.dataTask(with: request) { (data, response, error) in
+            
+            func sendError(_ error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForGetLocation(nil, NSError(domain: "taskForGetLocation", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error!)")
+                return
+            }
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                
+                sendError("Your request returned a status code other than 2xx!")
+                return
+            }
+            
+            guard let data = data else {
+                sendError("No data was return from your request")
+                return
+            }
+            
+            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForGetLocation)
+            
+        }
+        
+        task.resume()
+        return task
+    }
+    
     
     // MARK: method to post to any web Server
     func taskForPostMethod(method: String, parameters:[String: String], jsonBodyData: Data, completionHandlerForPostToU: @escaping (_ result: AnyObject?, _ error: NSError?)->Void) -> URLSessionDataTask{
@@ -88,6 +135,36 @@ class Client: NSObject{
             static var sharedInstance = Client()
         }
         return Singleton.sharedInstance
+    }
+    
+    private func getLocationParameterString(parameters: [String: String]?) -> String {
+        let limit = parameters?["limit"] ?? ""
+        let skip = parameters?["skip"] ?? ""
+        let order = parameters?["order"] ?? ""
+        
+        var limitUrl = ""
+        var skipUrl = ""
+        var orderUrl = ""
+        
+        if !limit.isEmpty {
+            limitUrl = "limit=\(limit)"
+        }
+        
+        if !skip.isEmpty {
+            skipUrl = "skip=\(skip)"
+        }
+        
+        if !order.isEmpty {
+            orderUrl = "order=\(order)"
+        }
+        
+        let parametersUrl = "?" + limitUrl + skipUrl + orderUrl
+        
+        // because optional are not set
+        if parametersUrl.characters.count == 1 {
+            return ""
+        }
+        return parametersUrl
     }
 }
     

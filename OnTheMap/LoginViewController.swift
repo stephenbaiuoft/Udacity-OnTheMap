@@ -60,14 +60,21 @@ class LoginViewController: UIViewController {
                     })
                 }
                 else{
+                    // completionHandlerForAuth needs to be passed to mainQueue
                     DispatchQueue.main.async(execute: {
-                        self.udacityLabel.text = "Debug: Your credential is good"
+                        self.completeLogin()
                     })
                 }
             })
        
         }
         // if true call loginAuthentication
+    }
+    
+    // MARK: Login --> go to the View Controller
+    private func completeLogin() {
+        let controller = storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
+        present(controller, animated: true, completion: nil)
     }
 }
 

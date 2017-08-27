@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC31E3A81F513AC100F4C521 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC31E3A71F513AC100F4C521 /* MapViewController.swift */; };
 		DC322E5D1F4F8786006FF50B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322E5C1F4F8786006FF50B /* AppDelegate.swift */; };
 		DC322E5F1F4F8786006FF50B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322E5E1F4F8786006FF50B /* LoginViewController.swift */; };
 		DC322E621F4F8786006FF50B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC322E601F4F8786006FF50B /* Main.storyboard */; };
@@ -18,6 +19,8 @@
 		DC322ED61F4FAACC006FF50B /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED51F4FAACC006FF50B /* Client.swift */; };
 		DC322ED81F4FB24A006FF50B /* ClientConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED71F4FB24A006FF50B /* ClientConstant.swift */; };
 		DC322EDA1F4FD858006FF50B /* ClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED91F4FD858006FF50B /* ClientConvenience.swift */; };
+		DC4630601F5156520095D9C9 /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC46305F1F5156520095D9C9 /* MapPin.swift */; };
+		DC4630621F51E4420095D9C9 /* MapConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4630611F51E4420095D9C9 /* MapConstant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC31E3A71F513AC100F4C521 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		DC322E591F4F8786006FF50B /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC322E5C1F4F8786006FF50B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC322E5E1F4F8786006FF50B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +59,9 @@
 		DC322ED51F4FAACC006FF50B /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		DC322ED71F4FB24A006FF50B /* ClientConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientConstant.swift; sourceTree = "<group>"; };
 		DC322ED91F4FD858006FF50B /* ClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientConvenience.swift; sourceTree = "<group>"; };
+		DC46305F1F5156520095D9C9 /* MapPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
+		DC4630611F51E4420095D9C9 /* MapConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapConstant.swift; sourceTree = "<group>"; };
+		DC4630631F5238460095D9C9 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +144,7 @@
 		DC322E8A1F4F87F0006FF50B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DC46305E1F51560C0095D9C9 /* Map */,
 				DC322ED41F4FAA97006FF50B /* Client */,
 			);
 			name = Model;
@@ -146,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				DC322E5E1F4F8786006FF50B /* LoginViewController.swift */,
+				DC31E3A71F513AC100F4C521 /* MapViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -171,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				DC322ED21F4F8A3F006FF50B /* BoarderedButton.swift */,
+				DC4630631F5238460095D9C9 /* MyPlayground.playground */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -183,6 +193,15 @@
 				DC322ED71F4FB24A006FF50B /* ClientConstant.swift */,
 			);
 			name = Client;
+			sourceTree = "<group>";
+		};
+		DC46305E1F51560C0095D9C9 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				DC46305F1F5156520095D9C9 /* MapPin.swift */,
+				DC4630611F51E4420095D9C9 /* MapConstant.swift */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,12 +341,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC4630621F51E4420095D9C9 /* MapConstant.swift in Sources */,
 				DC322ED81F4FB24A006FF50B /* ClientConstant.swift in Sources */,
 				DC322ED61F4FAACC006FF50B /* Client.swift in Sources */,
 				DC322EDA1F4FD858006FF50B /* ClientConvenience.swift in Sources */,
 				DC322E5F1F4F8786006FF50B /* LoginViewController.swift in Sources */,
+				DC4630601F5156520095D9C9 /* MapPin.swift in Sources */,
 				DC322ED31F4F8A3F006FF50B /* BoarderedButton.swift in Sources */,
 				DC322E5D1F4F8786006FF50B /* AppDelegate.swift in Sources */,
+				DC31E3A81F513AC100F4C521 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +602,7 @@
 				DC322E831F4F8786006FF50B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC322E841F4F8786006FF50B /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -588,6 +611,7 @@
 				DC322E861F4F8786006FF50B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC322E871F4F8786006FF50B /* Build configuration list for PBXNativeTarget "OnTheMapUITests" */ = {
 			isa = XCConfigurationList;
@@ -596,6 +620,7 @@
 				DC322E891F4F8786006FF50B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OAg-cv-kMR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -103,12 +104,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-150" y="67"/>
+            <point key="canvasLocation" x="543" y="-94"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="2Na-Bg-OCd">
             <objects>
-                <tabBarController id="OAg-cv-kMR" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" id="OAg-cv-kMR" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="B1D-Bs-1G1">
                         <barButtonItem key="leftBarButtonItem" image="icon_pin" id="LTd-10-hay"/>
                         <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="ZTZ-Gg-Bex"/>
@@ -130,7 +131,7 @@
         <!--On The Map-->
         <scene sceneID="eJD-8e-pak">
             <objects>
-                <viewController title="On The Map" id="wV7-3S-Q0T" sceneMemberID="viewController">
+                <viewController title="On The Map" id="wV7-3S-Q0T" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DpX-4O-c2m"/>
                         <viewControllerLayoutGuide type="bottom" id="43b-iH-Vmp"/>
@@ -138,17 +139,28 @@
                     <view key="view" contentMode="scaleToFill" id="OW6-IX-8Th">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sxY-Bw-Zlw">
+                                <rect key="frame" x="16" y="64" width="343" height="554"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sxY-Bw-Zlw" firstAttribute="trailing" secondItem="OW6-IX-8Th" secondAttribute="trailingMargin" id="0WF-as-Rk9"/>
+                            <constraint firstItem="sxY-Bw-Zlw" firstAttribute="top" secondItem="DpX-4O-c2m" secondAttribute="bottom" id="1cT-Oe-Gpu"/>
+                            <constraint firstItem="43b-iH-Vmp" firstAttribute="top" secondItem="sxY-Bw-Zlw" secondAttribute="bottom" id="wh4-M2-VSH"/>
+                            <constraint firstItem="sxY-Bw-Zlw" firstAttribute="leading" secondItem="OW6-IX-8Th" secondAttribute="leadingMargin" id="zba-tg-wdZ"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" id="hcN-1h-iZe"/>
-                    <navigationItem key="navigationItem" title="On The Map" id="4GU-oQ-ecR" userLabel="Map Navigation ıar">
-                        <barButtonItem key="leftBarButtonItem" image="icon_pin" id="hJF-Fu-hWz" userLabel="Pin Icon"/>
-                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="Z8c-hJ-ES1" userLabel="Refresh Icon"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" id="hcN-1h-iZe" userLabel="Tab Bar Map"/>
+                    <navigationItem key="navigationItem" title="On The Map" id="nH9-aL-ttI" userLabel="Navigation Bar Map">
+                        <barButtonItem key="leftBarButtonItem" image="icon_pin" id="DqX-Kp-xuU" userLabel="Pin Icon"/>
+                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="Adm-aF-2gT" userLabel="Refresh Icon"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hc-s9-ieO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2962" y="-393"/>
+            <point key="canvasLocation" x="3129" y="-394"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="6vK-vN-vPP">
@@ -175,7 +187,7 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="List" image="icon_listview-deselected" id="ZL8-Wd-3xQ"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="On The Map" id="wdB-7Z-rtr">
+                    <navigationItem key="navigationItem" title="On The Map" id="wdB-7Z-rtr" userLabel="Navigation Bar Map">
                         <barButtonItem key="leftBarButtonItem" image="icon_pin" id="gUq-Jv-nrS"/>
                         <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="2wN-wZ-bF5"/>
                     </navigationItem>
