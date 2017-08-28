@@ -19,6 +19,13 @@ class Client: NSObject{
     var clientMapPin: MapPin?
     
     
+    // MARK: method to post student location to PARSE Server
+//    func taskForPostLocation() -> URLSessionDataTask {
+//        
+//    }
+//    
+    
+    
     // Mark: method to get student location/locations information
     // parameters: optional in terms of limit, skip, order
     func taskForGetLocation(parameters: [String: String]?, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{
