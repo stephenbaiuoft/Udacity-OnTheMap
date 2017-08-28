@@ -22,6 +22,8 @@
 		DC4630601F5156520095D9C9 /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC46305F1F5156520095D9C9 /* MapPin.swift */; };
 		DC4630621F51E4420095D9C9 /* MapConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4630611F51E4420095D9C9 /* MapConstant.swift */; };
 		DC4630651F53A0860095D9C9 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */; };
+		DC7CC70E1F547DE500777EF7 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CC70D1F547DE500777EF7 /* MapViewDelegate.swift */; };
+		DC7CC7101F548AC000777EF7 /* AddLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		DC4630611F51E4420095D9C9 /* MapConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapConstant.swift; sourceTree = "<group>"; };
 		DC4630631F5238460095D9C9 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
+		DC7CC70D1F547DE500777EF7 /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
+		DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,8 @@
 				DC322E5E1F4F8786006FF50B /* LoginViewController.swift */,
 				DC31E3A71F513AC100F4C521 /* MapViewController.swift */,
 				DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */,
+				DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */,
+				DC7CC70D1F547DE500777EF7 /* MapViewDelegate.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -345,12 +351,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC4630621F51E4420095D9C9 /* MapConstant.swift in Sources */,
+				DC7CC7101F548AC000777EF7 /* AddLocationDelegate.swift in Sources */,
 				DC322ED81F4FB24A006FF50B /* ClientConstant.swift in Sources */,
 				DC322ED61F4FAACC006FF50B /* Client.swift in Sources */,
 				DC322EDA1F4FD858006FF50B /* ClientConvenience.swift in Sources */,
 				DC322E5F1F4F8786006FF50B /* LoginViewController.swift in Sources */,
 				DC4630601F5156520095D9C9 /* MapPin.swift in Sources */,
 				DC322ED31F4F8A3F006FF50B /* BoarderedButton.swift in Sources */,
+				DC7CC70E1F547DE500777EF7 /* MapViewDelegate.swift in Sources */,
 				DC4630651F53A0860095D9C9 /* AddLocationViewController.swift in Sources */,
 				DC322E5D1F4F8786006FF50B /* AppDelegate.swift in Sources */,
 				DC31E3A81F513AC100F4C521 /* MapViewController.swift in Sources */,

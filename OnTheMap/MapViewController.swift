@@ -21,9 +21,10 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        mapView.delegate = self
+
+        // Retriving location information
         Client.sharedInstance().updateMapView(mapView: mapView)
-        
         
     }
 
@@ -36,43 +37,6 @@ class MapViewController: UIViewController {
         
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-
-// MARK: MapView Delegate Mehthods
-extension MapViewController: MKMapViewDelegate{
-    // MARK: - MKMapViewDelegate
-    
-    // Here we create a view with a "right callout accessory view". You might choose to look into other
-    // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
-    // method in TableViewDataSource.
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseId = "pin"
-        
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
-        
-        if (pinView == nil) {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = true
-            pinView!.canShowCallout = true
-            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            
-        } else {
-            pinView!.annotation = annotation
-        }
-        
-        return pinView
-    }
     
     // check if using Default User Location or set a default
     func setLocationAuthorization() {
@@ -88,10 +52,10 @@ extension MapViewController: MKMapViewDelegate{
         
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse
         {
-               print("is authorizationStatus ?")
+            print("is authorizationStatus ?")
             mapView.showsUserLocation = true
         }
-        // Use default location
+            // Use default location
         else {
             if CLLocationManager.authorizationStatus() == .denied {
                 // to be fixed later on!!!
@@ -104,8 +68,11 @@ extension MapViewController: MKMapViewDelegate{
             
             print("authorization status")
             initDefaultLocation()
-
             
         }
     }
+
+
 }
+
+

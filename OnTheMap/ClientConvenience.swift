@@ -44,6 +44,14 @@ extension Client{
         }
     }
     
+    // call this function to Add a new location to MapView
+    func addMapPin(mapView: MKMapView, annotation: MKAnnotation) {
+        DispatchQueue.main.async {
+            print("Adding to the mapView for another annotation")
+            mapView.addAnnotation(annotation)
+        }
+    }
+    
     // call this function only after self.mapPins is updated
     private func updateMapPin(mapView: MKMapView) {
         var annotations = [MKPointAnnotation]()
@@ -75,7 +83,6 @@ extension Client{
             print("adding to Queue to Update to annotations")
             mapView.addAnnotations(annotations)
         }
-        
         
     }
     
