@@ -15,7 +15,7 @@ class AddLocationViewController: UIViewController {
     
     // MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var displayTextField: UITextField!
+    @IBOutlet weak var displayTextView: UITextView!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
     
@@ -24,15 +24,17 @@ class AddLocationViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        // Delegate Set up 
-        displayTextField.delegate = self
+      
+        // Delegate Set up         
         locationTextField.delegate = self
+        displayTextView.delegate = self  
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // show the default displayTextField message
+        showDefaultMessage()
         // Hide the mapView
         mapView.isHidden = true
         // Additional Set up
@@ -55,13 +57,42 @@ class AddLocationViewController: UIViewController {
 
     //
     @IBAction func findOnMap(sender: Any) {
-        // display mapView
-        mapView.isHidden = false
-        if ((locationTextField.text?.characters.count)! > 0) {
-                    updateSearchResults()
+        let button = sender as! UIButton
+        if button.currentTitle == "Find on the Map" {
+        
+            // display mapView
+            if ((locationTextField.text?.characters.count)! > 0) {
+                mapView.isHidden = false
+            
+                locationTextField.isHidden = true
+                updateSearchResults()
+            } else {
+                displayTextView.text = displayTextView.text! + "\nPlease Enter a Valid Location"
+            }
         } else {
-            displayTextField.text = displayTextField.text! + "\nPlease Enter a Valid Location"
+            // submit to Server
         }
+    }
+    
+    func showDefaultMessage() {
+        
+        let defaultString = "\nWhere are you\nstudying\ntoday"
+        let defaultAttributedString = NSMutableAttributedString.init(string: defaultString)
+        
+        let boldAttribute = [
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25),
+        ]
+        let normalAttribute = [
+            NSFontAttributeName: UIFont.init(name: "Helvetica Neue", size: 25) ?? UIFont.init(),
+            NSForegroundColorAttributeName: UIColor.gray
+        ]
+        
+        defaultAttributedString.addAttributes(normalAttribute, range: NSRange.init(location: 0, length: 14))
+        defaultAttributedString.addAttributes(boldAttribute, range: NSRange.init(location: 14, length: 9))
+        defaultAttributedString.addAttributes(normalAttribute, range: NSRange.init(location: 23, length: 6))
+        
+        displayTextView.attributedText = defaultAttributedString
+        displayTextView.textAlignment = .center
         
     }
     
@@ -84,12 +115,33 @@ class AddLocationViewController: UIViewController {
                     let annotation = MKPointAnnotation.init()
                     annotation.coordinate = placeMark.coordinate
                     mapView.addAnnotation(annotation)
+                    
+                    // update displayViewText
+                    self.updateDisplay()
+
                 }
                 
             } else {
                 print ("upadteSearchResults: unable to find this location")
             }
         }
+    }
+    
+    func updateDisplay() {
+        // update displayTextView
+        let dispString = "\n\n\nEnter a Link to Share Here"
+        let textAttribute = [
+            NSFontAttributeName: UIFont.init(name: "Helvetica Neue", size: 25) ?? UIFont.init(),
+            NSForegroundColorAttributeName: UIColor.white
+        ]
+        
+        let attributedText = NSAttributedString.init(string: dispString, attributes: textAttribute)
+        
+        displayTextView.attributedText = attributedText
+        displayTextView.textAlignment = .center
+        
+        // update Button
+        searchButton.setTitle("Submit", for: UIControlState.normal)
     }
     
 //    func addToMap(placeMark: MKPlacemark) {
