@@ -51,19 +51,18 @@ class LoginViewController: UIViewController {
             
         } else {
             udacityLabel.text = "Logging"
-            Client.sharedInstance().loginAuthentication(email: email!, password: password!, completionHandlerForAuth: { (success, errorString) in
-                // success no
-                if( !success ){
-                    // now update the view using mainQueue
-                    DispatchQueue.main.async(execute: { 
-                        self.udacityLabel.text = errorString!
-                    })
-                }
-                else{
-                    // completionHandlerForAuth needs to be passed to mainQueue
-                    DispatchQueue.main.async(execute: {
+            Client.sharedInstance().authenticateWithViewController(self, completionHandlerForAuthVC: { (success, errorString) in
+                if success {
+                    // yeah let's complete Login
+                    DispatchQueue.main.async {
+                        print("complete Login")
                         self.completeLogin()
-                    })
+                    }
+                   
+                } else {
+                    DispatchQueue.main.async {
+                        self.udacityLabel.text = errorString!
+                    }
                 }
             })
        

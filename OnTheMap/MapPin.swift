@@ -12,10 +12,10 @@ struct MapPin{
     
     let firstName: String
     let lastName: String
-    let latitude: Double
-    let longtitude: Double
-    let mapString: String
-    let mediaURL: String
+    var latitude: Double
+    var longtitude: Double
+    var mapString: String
+    var mediaURL: String
     let objectId: String
     let uniqueKey: String
     

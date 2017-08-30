@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OAg-cv-kMR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -156,13 +156,14 @@
                     <navigationItem key="navigationItem" title="On The Map" id="nH9-aL-ttI" userLabel="Navigation Bar Map">
                         <barButtonItem key="leftBarButtonItem" image="icon_pin" id="DqX-Kp-xuU" userLabel="Pin Icon">
                             <connections>
-                                <segue destination="i9C-PR-Kvn" kind="presentation" id="fNs-oj-aA6"/>
+                                <action selector="createLocationWithSender:" destination="wV7-3S-Q0T" id="LAG-Lr-G0N"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="Adm-aF-2gT" userLabel="Refresh Icon"/>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="sxY-Bw-Zlw" id="XLo-Az-4od"/>
+                        <segue destination="i9C-PR-Kvn" kind="presentation" identifier="addLocationIdentifier" id="mWc-bF-rkl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hc-s9-ieO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -242,9 +243,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="displayTextView" destination="usU-O1-VLM" id="Dha-2y-bac"/>
-                        <outlet property="locationTextField" destination="s3a-s2-msu" id="fQC-ta-FJc"/>
-                        <outlet property="mapView" destination="nLy-JQ-tZd" id="5Jd-az-s8d"/>
+                        <outlet property="displayTextView" destination="usU-O1-VLM" id="WcU-SL-zAB"/>
+                        <outlet property="locationTextField" destination="s3a-s2-msu" id="ER6-S6-Efp"/>
+                        <outlet property="mapView" destination="nLy-JQ-tZd" id="c4H-vG-l4q"/>
                         <outlet property="searchButton" destination="zq2-Mf-Uyi" id="xgb-nL-OzO"/>
                     </connections>
                 </viewController>
@@ -265,7 +266,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="myT-8k-Ta7" id="VJ7-IT-bye">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

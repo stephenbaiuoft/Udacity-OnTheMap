@@ -13,6 +13,8 @@ class MapViewController: UIViewController {
     // MARK: Variable declaration
     let locationManager = CLLocationManager()
     let localSearch: MKLocalSearch! = nil
+    let gotoAddLocationIdentifier = "addLocationIdentifier"
+    var existed: Bool = false
     
     // MARK: Outlet declaration
     @IBOutlet weak var mapView: MKMapView!
@@ -34,9 +36,65 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func createLocation(sender: Any) {
+        // check if previous submission exists
+        Client.sharedInstance().checkSubmit { (existed, error) in
+            if existed == nil {
+                print("Error in Processing Get Location")
+            }
+            else {
+                if existed! {
+                    // set existed as true
+                    self.existed = true
+                    DispatchQueue.main.async {
+                        self.showAlert()
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
+                    }
+                }                
+            }
+
+        }
         
     }
+    
+    
+    // MARK: Segue Region
+    
+    // handle necessary information
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == gotoAddLocationIdentifier){
+            let controller = segue.destination as! AddLocationViewController
+            controller.existed = existed
+        }
+    }
 
+    
+    
+    // MARK: Back end logic function region
+    
+    // Show Alert UI
+    func showAlert() {
+        let alertController = UIAlertController(title: "", message: "You Have Already Posted a Student Location. Would You Like to Overwrite Your Current Location?", preferredStyle: UIAlertControllerStyle.alert)
+        let overWriteAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            print("Overwrite Pressed")
+            
+            // go overwrite now
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+            print("Cancel Pressed")
+        }
+        
+        alertController.addAction(overWriteAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
     
     // check if using Default User Location or set a default
     func setLocationAuthorization() {
@@ -71,6 +129,8 @@ class MapViewController: UIViewController {
             
         }
     }
+    
+    
 
 
 }

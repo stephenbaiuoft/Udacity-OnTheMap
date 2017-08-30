@@ -17,6 +17,10 @@ extension Client{
         
         static let Session = "session"
         static let Id = "id"
+        static let User = "user"
+        static let Guard = "guard"
+        static let firstName = "first_name"
+        static let lastName = "last_name"
     }
     
     struct ULoginConstant{
@@ -27,6 +31,7 @@ extension Client{
     
     struct UdacityMethod{
         static let UdacitySession = "https://www.udacity.com/api/session"
+        static let UdacityUserData = "https://www.udacity.com/api/users/"
     }
 
     
@@ -54,5 +59,6 @@ extension Client{
     
     struct ParseMethod{
         static let GetStudentLocation = "https://parse.udacity.com/parse/classes/StudentLocation"
+        static let PostStudentLocation = "https://parse.udacity.com/parse/classes/StudentLocation"
     }
 }

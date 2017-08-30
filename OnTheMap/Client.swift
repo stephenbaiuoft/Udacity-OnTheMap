@@ -14,41 +14,49 @@ class Client: NSObject{
     // shared session
     var session = URLSession.shared
     var sessionId: String? = nil
+    var uniqueKey: String?
+    var firstName: String?
+    var lastName: String?
+    var objectId: String?
     
     var mapPins: [MapPin]? = nil
     var clientMapPin: MapPin?
     
     
     // MARK: method to post student location to PARSE Server
-//    func taskForPostLocation() -> URLSessionDataTask {
-//        
-//    }
-//    
-    
-    
-    // Mark: method to get student location/locations information
-    // parameters: optional in terms of limit, skip, order
-    func taskForGetLocation(parameters: [String: String]?, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{
+    func taskForModifyLocation(requestMethod: String ,method: String, jsonBodyData: Data, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{
         
-        let parametersUrl = getLocationParameterString(parameters: parameters)
-        let urlString = ParseMethod.GetStudentLocation + parametersUrl
+        var request = URLRequest.init(url: URL.init(string: method)!)
         
-        var request = URLRequest.init(url: URL.init(string: urlString)!)
+        request.httpMethod = requestMethod
         request.addValue(ParseConstantValue.ParseApplicationId, forHTTPHeaderField: ParseConstantKey.ParseApplicationId)
         request.addValue(ParseConstantValue.RESTAPIKey, forHTTPHeaderField: ParseConstantKey.RESTAPIKey)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        request.httpBody = jsonBodyData
+        
+        print("taskForPostLocation url is:", request.url)
         
         let task = Client.sharedInstance().session.dataTask(with: request) { (data, response, error) in
             
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForGetLocation(nil, NSError(domain: "taskForGetLocation", code: 1, userInfo: userInfo))
+                completionHandlerForGetLocation(nil, NSError(domain: "taskForPosttLocation", code: 1, userInfo: userInfo))
             }
             
             guard (error == nil) else {
                 sendError("There was an error with your request: \(error!)")
                 return
             }
+            
+            guard let statusCode1 = (response as? HTTPURLResponse)?.statusCode, let data1 = data else {
+                print("debugging here\n")
+                return
+            }
+            print("statusCode:", statusCode1)
+            print("data is:\n", data1)
+            
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 
@@ -71,8 +79,92 @@ class Client: NSObject{
     }
     
     
+    
+    // Mark: method to get student location/locations information
+    // parameters: optional in terms of limit, skip, order
+    func taskForGetLocation(method: String, parameters: [String: String]?, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{
+        
+        let parametersUrl = getLocationParameterString(parameters: parameters)
+        let urlString = method + parametersUrl
+        
+        var request = URLRequest.init(url: URL.init(string: urlString)!)
+        request.addValue(ParseConstantValue.ParseApplicationId, forHTTPHeaderField: ParseConstantKey.ParseApplicationId)
+        request.addValue(ParseConstantValue.RESTAPIKey, forHTTPHeaderField: ParseConstantKey.RESTAPIKey)
+        print("request url:", request.url)
+        
+        let task = Client.sharedInstance().session.dataTask(with: request) { (data, response, error) in
+            
+            func sendError(_ error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForGetLocation(nil, NSError(domain: "taskForGetLocation", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error!)")
+                return
+            }
+            
+            // To be Deleted
+            print(data)
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                
+                sendError("Your request returned a status code other than 2xx!")
+                return
+            }
+            
+            guard let data = data else {
+                sendError("No data was return from your request")
+                return
+            }
+            
+            // Do not chopData for getting mapLocation Info
+            self.convertDataWithCompletionHandler(false, data: data, completionHandlerForConvertData: completionHandlerForGetLocation)
+            
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    // MARK: method to get to any web Server
+    func taskForGetMethod(method: String, completionHandlerForPostToU: @escaping (_ result: AnyObject?, _ error: NSError?)->Void) -> URLSessionDataTask {
+        let request = URLRequest.init(url: URL.init(string: method)!)
+        
+        let task = Client.sharedInstance().session.dataTask(with: request) { (data, response, error) in
+            func sendError(_ error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForPostToU(nil, NSError(domain: "taskForGetMethod", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error!)")
+                return
+            }
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                
+                sendError("Your request returned a status code other than 2xx!")
+                return
+            }
+            
+            guard let data = data else {
+                sendError("No data was return from your request")
+                return
+            }
+            
+            self.convertDataWithCompletionHandler(true, data: data, completionHandlerForConvertData: completionHandlerForPostToU)
+
+        }
+        
+        return task
+    }
+    
+    
     // MARK: method to post to any web Server
-    func taskForPostMethod(method: String, parameters:[String: String], jsonBodyData: Data, completionHandlerForPostToU: @escaping (_ result: AnyObject?, _ error: NSError?)->Void) -> URLSessionDataTask{
+    func taskForPostMethod(method: String, jsonBodyData: Data, completionHandlerForPostToU: @escaping (_ result: AnyObject?, _ error: NSError?)->Void) -> URLSessionDataTask{
         
         var request = URLRequest.init(url: URL.init(string: method)!)
         request.httpMethod = "POST"

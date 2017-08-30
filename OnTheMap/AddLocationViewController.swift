@@ -11,7 +11,9 @@ import MapKit
 
 class AddLocationViewController: UIViewController {
     // MARK: Variables
-    
+    var placeMark: MKPlacemark?
+    // whether previous location existed
+    var existed: Bool = false
     
     // MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -67,12 +69,33 @@ class AddLocationViewController: UIViewController {
                 locationTextField.isHidden = true
                 updateSearchResults()
             } else {
-                displayTextView.text = displayTextView.text! + "\nPlease Enter a Valid Location"
+                displayTextView.text = displayTextView.text! + "\n\nPlease Enter a Valid Location"
             }
         } else {
             // submit to Server
+            if displayTextView.text != "" {
+                Client.sharedInstance().submitToParse(hostController: self, existed: existed, completionHandlerForSubmit: { (success, errorString) in
+                    if success {
+                        print("successfully made POST/PUT request to PARSE")
+                        // dismiss && go back!!!!
+                        DispatchQueue.main.async {
+                            
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                        
+                    } else {
+                        print("Error !!!!!!!!!!! at AddLocation VC")
+                    }
+                })
+            } else {
+                displayTextView.text = "Please enter a linkedin profile"
+            }
+            
         }
     }
+    
+
+    
     
     func showDefaultMessage() {
         
@@ -116,9 +139,10 @@ class AddLocationViewController: UIViewController {
                     annotation.coordinate = placeMark.coordinate
                     mapView.addAnnotation(annotation)
                     
+                    self.placeMark = placeMark
+                    
                     // update displayViewText
                     self.updateDisplay()
-
                 }
                 
             } else {
@@ -143,14 +167,10 @@ class AddLocationViewController: UIViewController {
         // update Button
         searchButton.setTitle("Submit", for: UIControlState.normal)
     }
-    
-//    func addToMap(placeMark: MKPlacemark) {
-//        let annotation = MKPointAnnotation()
-//        annotation.coordinate = placeMark.coordinate
-//        annotation.title = "\(first) \(last)"
-//        annotation.subtitle = mediaURL
-//    }
+
+
 }
+
 
 
 extension AddLocationViewController{

@@ -64,7 +64,6 @@
 		DC322ED91F4FD858006FF50B /* ClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientConvenience.swift; sourceTree = "<group>"; };
 		DC46305F1F5156520095D9C9 /* MapPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		DC4630611F51E4420095D9C9 /* MapConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapConstant.swift; sourceTree = "<group>"; };
-		DC4630631F5238460095D9C9 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		DC7CC70D1F547DE500777EF7 /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationDelegate.swift; sourceTree = "<group>"; };
@@ -189,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				DC322ED21F4F8A3F006FF50B /* BoarderedButton.swift */,
-				DC4630631F5238460095D9C9 /* MyPlayground.playground */,
 			);
 			name = View;
 			sourceTree = "<group>";
