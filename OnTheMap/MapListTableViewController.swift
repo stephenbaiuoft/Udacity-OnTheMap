@@ -22,6 +22,11 @@ class MapListTableViewController: UITableViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // reload data!
+        tableView.reloadData()
+    }
     
     // MARK: - Table view data source
 

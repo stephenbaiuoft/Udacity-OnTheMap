@@ -294,7 +294,7 @@
                     <navigationItem key="navigationItem" title="On The Map" id="wdB-7Z-rtr" userLabel="Navigation Bar Map">
                         <barButtonItem key="leftBarButtonItem" image="icon_pin" id="gUq-Jv-nrS" userLabel="Add TableView">
                             <connections>
-                                <segue destination="i9C-PR-Kvn" kind="presentation" identifier="gotoAddLocationIdentifierTableVC" id="kcb-oK-Nec"/>
+                                <action selector="createLocationWithSender:" destination="YQA-16-FZh" id="BZc-Ks-Gsf"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="2wN-wZ-bF5" userLabel="Logout TableView">
@@ -304,6 +304,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="i9C-PR-Kvn" kind="presentation" identifier="gotoAddLocationIdentifierTableVC" id="BKD-Cb-QaB"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IRo-XV-Dww" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -352,6 +355,6 @@
         <image name="icon_refresh" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mWc-bF-rkl"/>
+        <segue reference="BKD-Cb-QaB"/>
     </inferredMetricsTieBreakers>
 </document>

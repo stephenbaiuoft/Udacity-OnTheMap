@@ -31,6 +31,11 @@ class MapViewController: UIViewController {
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // update ClientView every single time!!!
+        Client.sharedInstance().updateMapView(mapView: mapView)
+    }
     
     @IBAction func createLocation(sender: Any) {
         // check if previous submission exists
