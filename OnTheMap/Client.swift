@@ -22,7 +22,6 @@ class Client: NSObject{
     var mapPins: [MapPin]? = nil
     var clientMapPin: MapPin?
     
-    
     // MARK: method to post student location to PARSE Server
     func taskForModifyLocation(requestMethod: String ,method: String, jsonBodyData: Data, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{
         

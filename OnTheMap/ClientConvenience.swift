@@ -201,7 +201,14 @@ extension Client{
         //MKPointAnnotation()
         DispatchQueue.main.async {
             print("adding to Queue to Update to annotations")
-            mapView.addAnnotations(annotations)
+            if mapView.annotations.count == 0{
+                mapView.addAnnotations(annotations)
+            }
+            // need to re-update entire view
+            else {
+                mapView.removeAnnotations(mapView.annotations)
+                mapView.addAnnotations(annotations)                
+            }
         }
         
     }

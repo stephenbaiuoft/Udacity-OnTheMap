@@ -84,7 +84,8 @@ class AddLocationViewController: UIViewController {
                             // assign annotation
                             self.annotation = annotation
                             print("Posting notification(annotation assigned)")
-                            // Post notification!
+                            
+                            // MARK: Post notification!
                             NotificationCenter.default.post(name: NSNotification.Name.init(Client.NotificationConstant.MapPinAdded), object: self)
                             
                             self.dismiss(animated: true, completion: nil)

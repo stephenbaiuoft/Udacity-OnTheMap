@@ -31,12 +31,6 @@ class MapViewController: UIViewController {
         
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        subscribeToAddLocationViewController()
-    }
-    
-    
     
     @IBAction func createLocation(sender: Any) {
         // check if previous submission exists
@@ -76,14 +70,18 @@ class MapViewController: UIViewController {
 
     
     
+    
     // MARK: Back end logic function region
     
     // Show Alert UI
     func showAlert() {
         let alertController = UIAlertController(title: "", message: "You Have Already Posted a Student Location. Would You Like to Overwrite Your Current Location?", preferredStyle: UIAlertControllerStyle.alert)
         let overWriteAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            
+            // MARK: Overwrite Section on MapViewController
             print("Overwrite Pressed")
-
+            // let mapViewController know/listen to mapPin is added event
+            Client.sharedInstance().subscribeToAddLocationViewController(chosenViewController: self)
             self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
             
         }
@@ -134,24 +132,26 @@ class MapViewController: UIViewController {
 }
 
 // Add Observer
+
 extension MapViewController {
+    // note this function has to be declared here!!! Because of NSNotificationCenter add MapViewController as observer
     
     func addedMapPinWillShow(_ notification: NSNotification) {
         print("Received a notification!")
         // append the latest annotation
         let controller = notification.object as? AddLocationViewController
         
-        // need to update view? or not?
-        mapView.addAnnotation(controller!.annotation!)
-        
+        print("MapViewVC Received Notif: Before updating")
+        // re-trieve data from PARSE again
+        Client.sharedInstance().updateMapView(mapView: mapView)
+        print("MapViewVC Received Notif: finished updating")
+        // re-move self as an observer
+        Client.sharedInstance().unsubscribeFromAddLocationViewController(chosenViewController: self)
+        print("Done removing MapViewController as Observer")
     }
-    
-    
-    func subscribeToAddLocationViewController() {
-        NotificationCenter.default.addObserver(self, selector: #selector(addedMapPinWillShow(_:)), name: NSNotification.Name.init(Client.NotificationConstant.MapPinAdded), object: nil)
-    }
-    
+
 
 }
+
 
 
