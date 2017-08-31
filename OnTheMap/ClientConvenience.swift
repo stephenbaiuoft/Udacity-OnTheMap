@@ -12,9 +12,6 @@ import MapKit
 // More Advanced Model Functions that build on Client
 extension Client{
     
-    
-    
-    
     // check if this user has previously submitted a location
     func checkSubmit( completionHandlerForCheck: @ escaping (_ ifSubmitted: Bool?, _ error: String?) -> Void ) {
         
@@ -132,9 +129,11 @@ extension Client{
                 
     }
     
-    // begin to save data to Client by receiving JSON map annotation information from PARSE
-    func updateMapView(mapView: MKMapView) {
-        // automatically updates
+//  Need to separate updateMapView's data module such that the tableVC can shared as well!!!!!
+    
+    // data module for getting studentLocation information from PARSE
+    func getStudentLocationsFromParse(completionHandlerForGetLocations: @escaping (_ success: Bool) -> Void) {
+        
         let task = Client.sharedInstance().taskForGetLocation( method: ParseMethod.GetStudentLocation, parameters: nil) { (data, error) in
             // an error occured
             func displayError(_ error: String) {
@@ -155,24 +154,35 @@ extension Client{
                 
                 // update Client mapPins data here
                 self.mapPins = MapPin.locationsFromResults(results: mapPinResults)
-                
-                // now update MapPin in MapView
-                self.updateMapPin(mapView: mapView)
-                
+                completionHandlerForGetLocations(true)
             }
-            
         }
+        
+        
     }
     
-    // call this function to Add a new location to MapView
-    func addMapPin(mapView: MKMapView, annotation: MKAnnotation) {
-        DispatchQueue.main.async {
-            print("Adding to the mapView for another annotation")
-            mapView.addAnnotation(annotation)
+    // begin to save data to Client by receiving JSON map annotation information from PARSE
+    func updateMapView(mapView: MKMapView) {
+        getStudentLocationsFromParse { (success) in
+            if success {
+                self.updateMapPin(mapView: mapView)
+            } else {
+                print("Error: getting locations from PARSE")
+            }
         }
+        
     }
+//
+//    // call this function to Add a new location to MapView
+//    func addMapPin(mapView: MKMapView, annotation: MKAnnotation) {
+//        DispatchQueue.main.async {
+//            print("Adding to the mapView for another annotation")
+//            mapView.addAnnotation(annotation)
+//        }
+//    }
     
-    // call this function only after self.mapPins is updated
+    
+    // call this function only after self.mapPins is updated ==> Note is already called by Dispatch
     private func updateMapPin(mapView: MKMapView) {
         var annotations = [MKPointAnnotation]()
         

@@ -256,7 +256,7 @@
         <!--On The Map-->
         <scene sceneID="6vK-vN-vPP">
             <objects>
-                <tableViewController id="YQA-16-FZh" sceneMemberID="viewController">
+                <tableViewController id="YQA-16-FZh" customClass="MapListTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="eZr-Vf-AUK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
