@@ -52,9 +52,21 @@ class MapViewController: UIViewController {
                     }
                 }
             }
-
         }
+    }
+    
+    @IBAction func logOut(sender: Any) {
         
+            Client.sharedInstance().udacityLogOut { (success, nsError) in
+                DispatchQueue.main.async {
+                    if success {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        print("Problem Logging Out")
+                    }
+                }
+                
+        }
     }
     
     
@@ -81,7 +93,7 @@ class MapViewController: UIViewController {
             // MARK: Overwrite Section on MapViewController
             print("Overwrite Pressed")
             // let mapViewController know/listen to mapPin is added event
-            Client.sharedInstance().subscribeToAddLocationViewController(chosenViewController: self)
+            Client.sharedInstance().subscribeToAddLocationViewController(chosenViewController: self, type: 0)
             self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
             
         }

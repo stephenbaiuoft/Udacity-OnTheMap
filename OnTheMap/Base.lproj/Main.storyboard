@@ -159,7 +159,11 @@
                                 <action selector="createLocationWithSender:" destination="wV7-3S-Q0T" id="LAG-Lr-G0N"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="Adm-aF-2gT" userLabel="Refresh Icon"/>
+                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="Adm-aF-2gT" userLabel="Refresh Icon">
+                            <connections>
+                                <action selector="logOutWithSender:" destination="wV7-3S-Q0T" id="Xe3-2Q-kRl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="sxY-Bw-Zlw" id="XLo-Az-4od"/>
@@ -288,8 +292,16 @@
                     <tabBarItem key="tabBarItem" title="List" image="icon_listview-deselected" id="ZL8-Wd-3xQ"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="On The Map" id="wdB-7Z-rtr" userLabel="Navigation Bar Map">
-                        <barButtonItem key="leftBarButtonItem" image="icon_pin" id="gUq-Jv-nrS"/>
-                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="2wN-wZ-bF5"/>
+                        <barButtonItem key="leftBarButtonItem" image="icon_pin" id="gUq-Jv-nrS" userLabel="Add TableView">
+                            <connections>
+                                <segue destination="i9C-PR-Kvn" kind="presentation" identifier="gotoAddLocationIdentifierTableVC" id="kcb-oK-Nec"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="2wN-wZ-bF5" userLabel="Logout TableView">
+                            <connections>
+                                <action selector="logOutWithSender:" destination="YQA-16-FZh" id="V34-sG-CHv"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
@@ -339,4 +351,7 @@
         <image name="icon_pin" width="24" height="24"/>
         <image name="icon_refresh" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="mWc-bF-rkl"/>
+    </inferredMetricsTieBreakers>
 </document>

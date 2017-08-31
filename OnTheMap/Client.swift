@@ -21,6 +21,54 @@ class Client: NSObject{
     
     var mapPins: [MapPin]? = nil
     var clientMapPin: MapPin?
+    var existed: Bool = false
+    
+    func taskForDeleteSession(completionHandlerForDelete: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+        
+        var request = URLRequest.init(url: URL.init(string: UdacityMethod.UdacitySession)!)
+        request.httpMethod = "DELETE"
+        
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+     
+        let task = Client.sharedInstance().session.dataTask(with: request, completionHandler: { (data, response, error) in
+            
+            func sendError(_ error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForDelete(nil , NSError(domain: "taskForDeleteSession", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error!)")
+                return
+            }
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                
+                sendError("Your request returned a status code other than 2xx!")
+                return
+            }
+            
+            guard let data = data else {
+                sendError("No data was return from your request")
+                return
+            }
+            
+            // Do not chopData for getting mapLocation Info
+            self.convertDataWithCompletionHandler(true, data: data, completionHandlerForConvertData: completionHandlerForDelete)
+            
+        })
+        
+        task.resume()
+    }
+    
     
     // MARK: method to post student location to PARSE Server
     func taskForModifyLocation(requestMethod: String ,method: String, jsonBodyData: Data, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{

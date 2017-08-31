@@ -17,16 +17,17 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate{
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                app.open(URL.init(string: toOpen)!, options: [:], completionHandler: { (success) in
-                    if (success) {
-                        print("Successfully open url")
-                    } else {
-                        print("Failed to open url")
-                    }
-                })
-                
+                if let url = URL.init(string: toOpen) {
+                    app.open(url, options: [:], completionHandler: { (success) in
+                        if (success) {
+                            print("Successfully open url")
+                        } else {
+                            print("Failed to open url")
+                        }
+                    })
+                }
             }
-        }
+    }
     }
     
     

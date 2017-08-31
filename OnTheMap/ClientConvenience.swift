@@ -11,12 +11,19 @@ import MapKit
 
 // More Advanced Model Functions that build on Client
 extension Client{
-    func deleteSession() {
-        
+    
+    func udacityLogOut(completionHandlerForLogOut: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
+        Client.sharedInstance().taskForDeleteSession { (result, error) in
+            // result meaning data received from PARSE after Delete session!!
+            if (result != nil) {
+                completionHandlerForLogOut(true, nil)
+            } else {
+                completionHandlerForLogOut(false, error!)
+            }
+        }
     }
     
-    
-    
+        
     // check if this user has previously submitted a location
     func checkSubmit( completionHandlerForCheck: @ escaping (_ ifSubmitted: Bool?, _ error: String?) -> Void ) {
         

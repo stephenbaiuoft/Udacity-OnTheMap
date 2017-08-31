@@ -13,6 +13,10 @@ extension Client{
         static let MapPinAdded = "mapPinAdded"
     }
     
+    struct SegueIdentifierConstant{
+        static let gotoAddLocationIdentifier = "addLocationIdentifier"
+    }
+    
     struct UResponseConstant{
         static let Account = "account"
         static let Registered = "registered"
