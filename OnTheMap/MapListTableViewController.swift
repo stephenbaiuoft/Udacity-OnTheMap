@@ -9,7 +9,8 @@
 import UIKit
 
 class MapListTableViewController: UITableViewController {
-
+    let tableCellIdentifier = "MapListTableViewCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,15 +31,19 @@ class MapListTableViewController: UITableViewController {
         return (Client.sharedInstance().mapPins?.count)!
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath)
+        
+        cell.imageView?.image = UIImage.init(named: "icon_pin")
+        let index = indexPath.row
+        let mapPin = Client.sharedInstance().mapPins?[index]
+        cell.textLabel?.text = (mapPin?.firstName)! + " " + (mapPin?.lastName)!
         // Configure the cell...
 
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.
