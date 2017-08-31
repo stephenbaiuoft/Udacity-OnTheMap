@@ -43,6 +43,21 @@ class MapListTableViewController: UITableViewController {
 
         return cell
     }
+    
+    // Tableview Delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let app = UIApplication.shared
+        if let toOpen = Client.sharedInstance().mapPins?[indexPath.row].mediaURL {
+            app.open(URL.init(string: toOpen)!, options: [:], completionHandler: { (success) in
+                if (success) {
+                    print("Successfully open url")
+                } else {
+                    print("Failed to open url")
+                }
+            })
+        }
+    }
+    
  
 
     /*

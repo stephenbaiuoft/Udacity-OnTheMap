@@ -11,6 +11,11 @@ import MapKit
 
 // More Advanced Model Functions that build on Client
 extension Client{
+    func deleteSession() {
+        
+    }
+    
+    
     
     // check if this user has previously submitted a location
     func checkSubmit( completionHandlerForCheck: @ escaping (_ ifSubmitted: Bool?, _ error: String?) -> Void ) {
