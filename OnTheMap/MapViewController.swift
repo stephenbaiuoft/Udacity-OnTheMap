@@ -15,6 +15,7 @@ class MapViewController: UIViewController {
     let localSearch: MKLocalSearch! = nil
     let gotoAddLocationIdentifier = "addLocationIdentifier"
     var existed: Bool = false
+    var annotation: MKAnnotation?
     
     // MARK: Outlet declaration
     @IBOutlet weak var mapView: MKMapView!
@@ -30,30 +31,32 @@ class MapViewController: UIViewController {
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeToAddLocationViewController()
     }
+    
+    
     
     @IBAction func createLocation(sender: Any) {
         // check if previous submission exists
         Client.sharedInstance().checkSubmit { (existed, error) in
+            
             if existed == nil {
                 print("Error in Processing Get Location")
             }
             else {
-                if existed! {
-                    // set existed as true
-                    self.existed = true
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if existed! {
+                        // set existed as true
+                        self.existed = true
                         self.showAlert()
+                        
                     }
-                }
-                else {
-                    DispatchQueue.main.async {
+                    else {
                         self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
                     }
-                }                
+                }
             }
 
         }
@@ -80,11 +83,9 @@ class MapViewController: UIViewController {
         let alertController = UIAlertController(title: "", message: "You Have Already Posted a Student Location. Would You Like to Overwrite Your Current Location?", preferredStyle: UIAlertControllerStyle.alert)
         let overWriteAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             print("Overwrite Pressed")
+
+            self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
             
-            // go overwrite now
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
-            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
             print("Cancel Pressed")
@@ -130,8 +131,26 @@ class MapViewController: UIViewController {
         }
     }
     
-    
+}
 
+// Add Observer
+extension MapViewController {
+    
+    func addedMapPinWillShow(_ notification: NSNotification) {
+        print("Received a notification!")
+        // append the latest annotation
+        let controller = notification.object as? AddLocationViewController
+        
+        // need to update view? or not?
+        mapView.addAnnotation(controller!.annotation!)
+        
+    }
+    
+    
+    func subscribeToAddLocationViewController() {
+        NotificationCenter.default.addObserver(self, selector: #selector(addedMapPinWillShow(_:)), name: NSNotification.Name.init(Client.NotificationConstant.MapPinAdded), object: nil)
+    }
+    
 
 }
 

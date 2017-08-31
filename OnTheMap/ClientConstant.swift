@@ -9,6 +9,9 @@
 import Foundation
 
 extension Client{
+    struct NotificationConstant{
+        static let MapPinAdded = "mapPinAdded"
+    }
     
     struct UResponseConstant{
         static let Account = "account"

@@ -35,7 +35,7 @@ class Client: NSObject{
         
         request.httpBody = jsonBodyData
         
-        print("taskForPostLocation url is:", request.url)
+        print("taskForModifyLocation url is:", request.url, "\nwith method of:", requestMethod)
         
         let task = Client.sharedInstance().session.dataTask(with: request) { (data, response, error) in
             

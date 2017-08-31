@@ -63,16 +63,25 @@ extension Client{
     
     
     // submit necessary information to PARSE SERVER
-    func submitToParse( hostController: AddLocationViewController, existed: Bool, completionHandlerForSubmit: @ escaping (_ success: Bool, _ error: String?) -> Void) {
+    func submitToParse( hostController: AddLocationViewController, existed: Bool, completionHandlerForSubmit: @ escaping (_ success: Bool, _ error: String?, _ annotation: MKAnnotation?) -> Void) {
         
         let lat = hostController.placeMark?.coordinate.latitude
         let long = hostController.placeMark?.coordinate.longitude
-        let mediaUrl = hostController.displayTextView.text!
+        // Need to remove newline or PARSE server will fail
+        var mediaUrl = hostController.displayTextView.text!
+        mediaUrl = mediaUrl.replacingOccurrences(of: "\n", with: "")
+        
         let locationText = hostController.locationTextField.text!
         
         let uniqueKey = Client.sharedInstance().uniqueKey!
         let firstName = Client.sharedInstance().firstName!
         let lastName = Client.sharedInstance().lastName!
+        
+        // Geneaate a new annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D.init(latitude: lat!, longitude: long!)
+        annotation.title = "\(firstName) \(lastName)"
+        annotation.subtitle = mediaUrl
         
         // submit a new Post request
         if( !existed) {
@@ -87,9 +96,9 @@ extension Client{
             let task = Client.sharedInstance().taskForModifyLocation( requestMethod: "POST", method: Client.ParseMethod.PostStudentLocation, jsonBodyData: jsonBodyData, completionHandlerForGetLocation:{
                 (data, error) in
                 if error != nil {
-                    completionHandlerForSubmit(false, "Error occured converting foundation object")
-                } else {                    
-                    completionHandlerForSubmit(true, nil)
+                    completionHandlerForSubmit(false, "Error occured converting foundation object", nil)
+                } else {
+                    completionHandlerForSubmit(true, nil, annotation)
                 }
             })
         }
@@ -97,18 +106,24 @@ extension Client{
         // existed we should do Put request
         else {
             guard let jsonBodyData = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationText)\", \"mediaURL\": \"\(mediaUrl)\",\"latitude\": \(lat!), \"longitude\": \(long!)}".data(using: String.Encoding.utf8) else {
+                
                 print("Failed to convert to JSON data")
                 return
+                
             }
+             let str = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationText)\", \"mediaURL\": \"\(mediaUrl)\",\"latitude\": \(lat!), \"longitude\": \(long!)}"
+            
+            print("jsonBodyDataStr:", str)
             
             let method = ParseMethod.PostStudentLocation + "/" + objectId!
+            
             
             let task = Client.sharedInstance().taskForModifyLocation( requestMethod: "PUT", method: method, jsonBodyData: jsonBodyData, completionHandlerForGetLocation:{
                 (data, error) in
                 if error != nil {
-                    completionHandlerForSubmit(false, "Error occured converting foundation object")
+                    completionHandlerForSubmit(false, "Error occured converting foundation object", nil)
                 } else {
-                    completionHandlerForSubmit(true, nil)
+                    completionHandlerForSubmit(true, nil, annotation)
                 }
             })
             

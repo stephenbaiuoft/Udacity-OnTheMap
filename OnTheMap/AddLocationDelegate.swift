@@ -26,7 +26,7 @@ extension AddLocationViewController: UITextFieldDelegate, UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "\n\n\nEnter a Link to Share Here" {
-            textView.text = ""
+            textView.text = "\n\n\n"
         }
     }
     

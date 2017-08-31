@@ -14,6 +14,7 @@ class AddLocationViewController: UIViewController {
     var placeMark: MKPlacemark?
     // whether previous location existed
     var existed: Bool = false
+    var annotation: MKAnnotation?
     
     // MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -74,20 +75,27 @@ class AddLocationViewController: UIViewController {
         } else {
             // submit to Server
             if displayTextView.text != "" {
-                Client.sharedInstance().submitToParse(hostController: self, existed: existed, completionHandlerForSubmit: { (success, errorString) in
+                Client.sharedInstance().submitToParse(hostController: self, existed: existed, completionHandlerForSubmit: { (success, errorString, annotation ) in
+                    
                     if success {
                         print("successfully made POST/PUT request to PARSE")
                         // dismiss && go back!!!!
                         DispatchQueue.main.async {
+                            // assign annotation
+                            self.annotation = annotation
+                            print("Posting notification(annotation assigned)")
+                            // Post notification!
+                            NotificationCenter.default.post(name: NSNotification.Name.init(Client.NotificationConstant.MapPinAdded), object: self)
                             
                             self.dismiss(animated: true, completion: nil)
                         }
                         
                     } else {
                         print("Error !!!!!!!!!!! at AddLocation VC")
-                    }
-                })
-            } else {
+                    }})
+                }
+            
+            else {
                 displayTextView.text = "Please enter a linkedin profile"
             }
             
@@ -167,7 +175,6 @@ class AddLocationViewController: UIViewController {
         // update Button
         searchButton.setTitle("Submit", for: UIControlState.normal)
     }
-
 
 }
 
