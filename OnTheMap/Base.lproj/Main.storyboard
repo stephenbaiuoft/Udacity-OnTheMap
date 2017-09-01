@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -154,16 +155,19 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" id="hcN-1h-iZe" userLabel="Tab Bar Map"/>
                     <navigationItem key="navigationItem" title="On The Map" id="nH9-aL-ttI" userLabel="Navigation Bar Map">
-                        <barButtonItem key="leftBarButtonItem" image="icon_pin" id="DqX-Kp-xuU" userLabel="Pin Icon">
-                            <connections>
-                                <action selector="createLocationWithSender:" destination="wV7-3S-Q0T" id="LAG-Lr-G0N"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="Adm-aF-2gT" userLabel="Refresh Icon">
+                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="Adm-aF-2gT" userLabel="Logout Button">
                             <connections>
                                 <action selector="logOutWithSender:" destination="wV7-3S-Q0T" id="Xe3-2Q-kRl"/>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="DqX-Kp-xuU" userLabel="Pin Icon">
+                                <connections>
+                                    <action selector="createLocationWithSender:" destination="wV7-3S-Q0T" id="LAG-Lr-G0N"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="Mhh-LS-qo5" userLabel="Refresh"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="sxY-Bw-Zlw" id="XLo-Az-4od"/>
@@ -292,16 +296,19 @@
                     <tabBarItem key="tabBarItem" title="List" image="icon_listview-deselected" id="ZL8-Wd-3xQ"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="On The Map" id="wdB-7Z-rtr" userLabel="Navigation Bar Map">
-                        <barButtonItem key="leftBarButtonItem" image="icon_pin" id="gUq-Jv-nrS" userLabel="Add TableView">
-                            <connections>
-                                <action selector="createLocationWithSender:" destination="YQA-16-FZh" id="BZc-Ks-Gsf"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="2wN-wZ-bF5" userLabel="Logout TableView">
+                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="2wN-wZ-bF5" userLabel="Logout TableView">
                             <connections>
                                 <action selector="logOutWithSender:" destination="YQA-16-FZh" id="V34-sG-CHv"/>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="gUq-Jv-nrS" userLabel="Add TableView">
+                                <connections>
+                                    <action selector="createLocationWithSender:" destination="YQA-16-FZh" id="BZc-Ks-Gsf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="b8E-Tj-wrc" userLabel="Refresh"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -355,6 +362,6 @@
         <image name="icon_refresh" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BKD-Cb-QaB"/>
+        <segue reference="mWc-bF-rkl"/>
     </inferredMetricsTieBreakers>
 </document>
