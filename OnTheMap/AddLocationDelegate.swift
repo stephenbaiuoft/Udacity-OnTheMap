@@ -30,4 +30,8 @@ extension AddLocationViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
 }

@@ -47,34 +47,31 @@ class LoginViewController: UIViewController {
         let password = passwordTextField.text
         
         if ((email?.isEmpty)! || (password?.isEmpty)! || !(email?.contains("@"))! ){
-            Client.sharedInstance().showAlert(hostController: self, warningMsg: "Incorrect Email or Password Content", action1Msg: nil, action2Msg: nil)
+            Client.sharedInstance().showAlert(hostController: self, warningMsg: "Incorrect Email or Password Content")
             
         } else {
             udacityLabel.text = "Logging"
             Client.sharedInstance().authenticateWithViewController(self, completionHandlerForAuthVC: { (success, errorString) in
                 if success {
-                    // yeah let's complete Login
-                    DispatchQueue.main.async {
-                        print("complete Login")
                         self.completeLogin()
-                    }
-                   
+                    
                 } else {
                     DispatchQueue.main.async {
                         self.udacityLabel.text = errorString!
-                        Client.sharedInstance().showAlert(hostController: self, warningMsg: "Error in Email or Password", action1Msg: nil, action2Msg: nil)
+                        Client.sharedInstance().showAlert(hostController: self, warningMsg: errorString!)
                     }
                 }
             })
-       
         }
-        // if true call loginAuthentication
     }
     
     // MARK: Login --> go to the View Controller
     private func completeLogin() {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
-        present(controller, animated: true, completion: nil)
+        // completeLogin used in @escaping syntax
+        DispatchQueue.main.async {
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
+            self.present(controller, animated: true, completion: nil)
+        }
     }
 }
 

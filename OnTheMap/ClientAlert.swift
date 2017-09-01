@@ -29,4 +29,12 @@ extension Client {
         hostController.present(alertController, animated: true, completion: nil)
     }
     
+    func showAlert(hostController: UIViewController, warningMsg: String) {
+        let alertController = UIAlertController(title: "", message: warningMsg, preferredStyle: UIAlertControllerStyle.alert)        
+        let dismissAction = UIAlertAction.init(title: "Okay", style: UIAlertActionStyle.cancel, handler: nil)
+        alertController.addAction(dismissAction)
+        
+        hostController.present(alertController, animated: true, completion: nil)
+    }
+    
 }

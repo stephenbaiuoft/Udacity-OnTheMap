@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-// More Advanced Model Functions that build on Client
+// This file is responsible for higher-level handling of urlTaskMethods
 extension Client{
     
     func udacityLogOut(completionHandlerForLogOut: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
@@ -29,9 +29,9 @@ extension Client{
         
         let parameterString = "where={\"uniqueKey\":\"\(uniqueKey!)\"}".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let methodString = ParseMethod.GetStudentLocation + "?" + parameterString!
-
         
-        let task = taskForGetLocation (method: methodString) { (data, error)
+        // parametersUrl is "" because not getting locations of all student
+        let task = taskForGetLocation (method: methodString, parametersUrl: "") { (data, error)
             in
             
             if error != nil {
@@ -140,90 +140,55 @@ extension Client{
 //  Need to separate updateMapView's data module such that the tableVC can shared as well!!!!!
     
     // data module for getting studentLocation information from PARSE
-    func getStudentLocationsFromParse(completionHandlerForGetLocations: @escaping (_ success: Bool) -> Void) {
-        
-        let task = Client.sharedInstance().taskForGetLocation( method: ParseMethod.GetStudentLocation) { (data, error) in
-            // an error occured
-            func displayError(_ error: String) {
-                print("Error in updateMapPin: " + error)
-            }
+    // call this during Login process: s.t. mapViewVC && tableViewVC can use data safely!!
+    func getStudentLocationsData(completionHandlerForGetLocations: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        let parametersUrl = "?limit=100&order=-updatedAt"
+        let task = Client.sharedInstance().taskForGetLocation( method: ParseMethod.GetStudentLocation, parametersUrl: parametersUrl) { (data, error) in
             
             if error != nil {
-                displayError("Error converting foundation object: " + (error?.localizedDescription)!)
+                completionHandlerForGetLocations(false, error?.localizedDescription)
             }
             else{
                 // here parsedResult cannot be nil because of how we handled it
                 let parsedResult = data as! [String: AnyObject]
                 
-                guard let mapPinResults = parsedResult[ParseResponseKeys.Results] as? [[String: AnyObject]] else {
-                    displayError("Error converting mapPin results to [[String: AnyObject]]")
+                guard let studentLocationsResults = parsedResult[ParseResponseKeys.Results] as? [[String: AnyObject]] else {
+                    completionHandlerForGetLocations(false, JSONConversionError.JSONToDicAry)
                     return
                 }
                 
                 // Debug
-                print("Received # of studentLocations: ", mapPinResults.count)
+                self.log("Received # of studentLocations: ", studentLocationsResults.count as AnyObject)
+                
                 // update Client mapPins data here
-                self.mapPins = MapPin.locationsFromResults(results: mapPinResults)
-                completionHandlerForGetLocations(true)
+                self.studentInformationSet = StudentInformation.infoFromResults(results: studentLocationsResults)
+                completionHandlerForGetLocations(true, nil)
             }
         }
-        
-        
     }
+    
     
     // begin to save data to Client by receiving JSON map annotation information from PARSE
     func updateMapView(hostController: MapViewController) {
-        getStudentLocationsFromParse { (success) in
-            if success {                
-                self.updateMapPin(mapView: hostController.mapView)
-            } else {
-                Client.sharedInstance().showAlert(hostController: hostController, warningMsg: "Failed to get studentLocation information", action1Msg: nil, action2Msg: nil)
-            }
-        }
         
+            self.updateMapPin(mapView: hostController.mapView)
     }
-//
-//    // call this function to Add a new location to MapView
-//    func addMapPin(mapView: MKMapView, annotation: MKAnnotation) {
-//        DispatchQueue.main.async {
-//            print("Adding to the mapView for another annotation")
-//            mapView.addAnnotation(annotation)
-//        }
-//    }
     
-    
-    // call this function only after self.mapPins is updated ==> Note is already called by Dispatch
+    // call this function only after updating studentLocationSet is updated ==> Note is already called by Dispatch
     private func updateMapPin(mapView: MKMapView) {
         var annotations = [MKPointAnnotation]()
         
-        for mapPin in self.mapPins!{
-            // Notice that the float values are being used to create CLLocationDegree values.
-            // This is a version of the Double type.
-            let lat = CLLocationDegrees(mapPin.latitude)
-            let long = CLLocationDegrees(mapPin.longtitude)
-            
-            // The lat and long are used to create a CLLocationCoordinates2D instance.
-            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            
-            let first = mapPin.firstName
-            let last = mapPin.lastName
-            let mediaURL = mapPin.mediaURL
-            
-            // Here we create the annotation and set its coordiate, title, and subtitle properties
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
-            annotation.subtitle = mediaURL
-            
-            // Finally we place the annotation in an array of annotations.
-            annotations.append(annotation)
+        for studentInfo in self.studentInformationSet!{
+            annotations.append(studentInfo.annotation)
         }
         //MKPointAnnotation()
         DispatchQueue.main.async {
-            print("adding to Queue to Update to annotations")
-            if mapView.annotations.count == 0{
+            self.log("adding to Queue to Update to annotations", nil)
+            
+            if mapView.annotations.count == 0 {
                 mapView.addAnnotations(annotations)
             }
+                
             // need to re-update entire view
             else {
                 mapView.removeAnnotations(mapView.annotations)
@@ -239,14 +204,31 @@ extension Client{
          loginAuthentication(hostViewController, completionHandlerForAuth: { (success, errorString) in
             // success no
             if( success ){
-                // now get the student information
-                self.getUserData(completionHandlerForUserData: { (success, error) in
+                
+                // Second Step: now get user Account information
+                self.getUserData(uniqueKey: self.uniqueKey!, completionHandlerForUserData: { (success, error) in
                     if success {
-                        completionHandlerForAuthVC(true, nil)
-                    } else {
-                        completionHandlerForAuthVC(false, error)
+                        
+                        // Third Step: now get studentLocations Information ==> to be used for ViewControllers
+                        self.getStudentLocationsData(completionHandlerForGetLocations: { (success, errorString) in
+                            if success {
+                                completionHandlerForAuthVC(true, nil)
+                            }
+                            else {
+                                completionHandlerForAuthVC(false, errorString!)
+                            }
+                            
+                        })
+                    }
+                        
+                    else {
+                        completionHandlerForAuthVC(false, error!)
                     }
                 })
+                
+                // loginAuthentication will assign uniqueKey with value
+                //self.getUserData(uniqueKey: self.uniqueKey!,completionHandlerForUserData: completionHandlerForAuthVC)
+                
             }
             else{
                  completionHandlerForAuthVC(false, errorString)
@@ -255,19 +237,20 @@ extension Client{
     
     }
     
-    func getUserData( completionHandlerForUserData: @escaping (_ success:Bool, _ errorString:String?)->Void) {
+    func getUserData(uniqueKey: String ,completionHandlerForUserData: @escaping (_ success:Bool, _ errorString:String?)->Void) {
         
-        let method = UdacityMethod.UdacityUserData + uniqueKey!
+        let method = UdacityMethod.UdacityUserData + uniqueKey
         let task = taskForGetMethod(method: method) { (data, error) in
             if let error = error{
                 completionHandlerForUserData(false, error.localizedDescription)
+                return
             } else {
                 let parsedResult = data as! [String: AnyObject]
                 
                 guard let userInfo = parsedResult[UResponseConstant.User] as? [String: AnyObject],
                 let lastName = userInfo[UResponseConstant.lastName] as? String,
                 let firstName = userInfo[UResponseConstant.firstName] as? String else {
-                    completionHandlerForUserData(false, "Error parsing userInfo or lastName" )
+                    completionHandlerForUserData(false, UdacityAccountError.UserInfo + " or " + UdacityAccountError.LastName )
                     return
                 }
                 
@@ -275,7 +258,6 @@ extension Client{
                 self.firstName = firstName
                 self.lastName = lastName
                 completionHandlerForUserData(true, nil)
-                
             }
         }
         
@@ -306,7 +288,7 @@ extension Client{
                     let registered = accountInfo[UResponseConstant.Registered] as? Bool,
                     let uniqueKey = accountInfo[UResponseConstant.Key] as? String
                     else {
-                    completionHandlerForAuth(false, "Failed to parse user account info")
+                    completionHandlerForAuth(false, UdacityAccountError.ParseAccount)
                     return
                 }
                 // assign and store unique key for client student
@@ -314,18 +296,17 @@ extension Client{
                 
                 guard let sessionInfo = parsedResult[UResponseConstant.Session] as? [String: AnyObject],
                     let sessionId = sessionInfo[UResponseConstant.Id] as? String else {
-                        completionHandlerForAuth(false, "Failed to parse user session info")
+                        completionHandlerForAuth(false, UdacityAccountError.ParseSession)
                         return
                 }
                 
                 if (registered){
                     // assign sessionId
                     self.sessionId = sessionId
-                    
                     completionHandlerForAuth(true, nil)
                 }
                 else {
-                    completionHandlerForAuth(false, "User not registered on Udacity")
+                    completionHandlerForAuth(false, UdacityAccountError.Unregistered)
                     return
                 }
                 

@@ -161,6 +161,12 @@ class AddLocationViewController: UIViewController {
     }
     
     func updateDisplay() {
+        
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance((placeMark?.coordinate)!, 1000, 1000)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+        
         // update displayTextView
         let dispString = "\n\n\nEnter a Link to Share Here"
         let textAttribute = [

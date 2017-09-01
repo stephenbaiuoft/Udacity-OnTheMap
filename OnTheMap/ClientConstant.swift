@@ -9,6 +9,31 @@
 import Foundation
 
 extension Client{
+    
+    struct WebUrlError {
+        static let OpenUrl = "Failed to open the url: most likely the url is invalid"
+    }
+    
+    // common error in HttpError
+    struct HttpErrorMsg{
+        static let SessionError = "There was an error with your request: "
+        static let StatusCode = "Your request returned a status code other than 2xx!"
+        static let DataReturn = "No data was return from your request"
+    }
+    
+    // common error in Converting Data
+    struct JSONConversionError{
+        static let JSONToDicAry = "Failed to convert JSON to [[String: AnyObject]]"
+    }
+    
+    struct UdacityAccountError{
+        static let ParseAccount = "Failed to parse user account info"
+        static let ParseSession = "Failed to parse user session info"
+        static let Unregistered = "User not registered on Udacity"
+        static let UserInfo = "Failed to get userInfo"
+        static let LastName = "Failed to get lastName"
+    }
+    
     struct NotificationConstant{
         static let MapPinAdded = "mapPinAdded"
     }

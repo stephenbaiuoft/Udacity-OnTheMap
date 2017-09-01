@@ -14,12 +14,7 @@ class MapListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Client.sharedInstance().getStudentLocationsFromParse { (success) in
-            if (!success) {
-                print("Error Getting Locations from PARSE: MapListTableview VC")
-            }
-        }
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +29,7 @@ class MapListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (Client.sharedInstance().mapPins?.count)!
+        return (Client.sharedInstance().studentInformationSet?.count)!
     }
 
     
@@ -43,8 +38,8 @@ class MapListTableViewController: UITableViewController {
         
         cell.imageView?.image = UIImage.init(named: "icon_pin")
         let index = indexPath.row
-        let mapPin = Client.sharedInstance().mapPins?[index]
-        cell.textLabel?.text = (mapPin?.firstName)! + " " + (mapPin?.lastName)!
+        let studentInfo = Client.sharedInstance().studentInformationSet?[index]
+        cell.textLabel?.text = (studentInfo?.firstName)! + " " + (studentInfo?.lastName)!
         // Configure the cell...
 
         return cell
@@ -53,13 +48,13 @@ class MapListTableViewController: UITableViewController {
     // Tableview Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let app = UIApplication.shared
-        if let toOpen = Client.sharedInstance().mapPins?[indexPath.row].mediaURL {
+        if let toOpen = Client.sharedInstance().studentInformationSet?[indexPath.row].mediaURL {
             if let url = URL.init(string: toOpen) {
                 app.open(url, options: [:], completionHandler: { (success) in
                     if (success) {
                         print("Successfully open url")
                     } else {
-                        print("Failed to open url")
+                        Client.sharedInstance().showAlert(hostController: self, warningMsg: Client.WebUrlError.OpenUrl )
                     }
                 })
             }
