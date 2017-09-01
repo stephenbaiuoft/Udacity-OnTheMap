@@ -46,8 +46,8 @@ class LoginViewController: UIViewController {
         let email = emailTextField.text
         let password = passwordTextField.text
         
-        if ((email?.isEmpty)! || (password?.isEmpty)!){
-            udacityLabel.text = "Cannot Login: Email or Password is Empty"
+        if ((email?.isEmpty)! || (password?.isEmpty)! || !(email?.contains("@"))! ){
+            Client.sharedInstance().showAlert(hostController: self, warningMsg: "Incorrect Email or Password Content", action1Msg: nil, action2Msg: nil)
             
         } else {
             udacityLabel.text = "Logging"
@@ -62,6 +62,7 @@ class LoginViewController: UIViewController {
                 } else {
                     DispatchQueue.main.async {
                         self.udacityLabel.text = errorString!
+                        Client.sharedInstance().showAlert(hostController: self, warningMsg: "Error in Email or Password", action1Msg: nil, action2Msg: nil)
                     }
                 }
             })
@@ -82,5 +83,10 @@ extension LoginViewController: UITextFieldDelegate{
         // reset label text
         udacityLabel.text = "Login to Udacity"
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true;
+    }
+    
 }
 

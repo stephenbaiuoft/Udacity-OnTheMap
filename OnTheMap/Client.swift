@@ -82,7 +82,7 @@ class Client: NSObject{
         
         request.httpBody = jsonBodyData
         
-        print("taskForModifyLocation url is:", request.url, "\nwith method of:", requestMethod)
+        //print("taskForModifyLocation url is:", request.url, "\nwith method of:", requestMethod)
         
         let task = Client.sharedInstance().session.dataTask(with: request) { (data, response, error) in
             
@@ -96,14 +96,6 @@ class Client: NSObject{
                 sendError("There was an error with your request: \(error!)")
                 return
             }
-            
-            guard let statusCode1 = (response as? HTTPURLResponse)?.statusCode, let data1 = data else {
-                print("debugging here\n")
-                return
-            }
-            print("statusCode:", statusCode1)
-            print("data is:\n", data1)
-            
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 
@@ -129,9 +121,10 @@ class Client: NSObject{
     
     // Mark: method to get student location/locations information
     // parameters: optional in terms of limit, skip, order
-    func taskForGetLocation(method: String, parameters: [String: String]?, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{
+    func taskForGetLocation(method: String, completionHandlerForGetLocation: @escaping (_ result: AnyObject?, _ error: NSError?)->Void ) -> URLSessionDataTask{
         
-        let parametersUrl = getLocationParameterString(parameters: parameters)
+        // Hard-Coded Set for Requirement
+        let parametersUrl = "?limit=100&order=-updatedAt"
         let urlString = method + parametersUrl
         
         var request = URLRequest.init(url: URL.init(string: urlString)!)
@@ -152,8 +145,8 @@ class Client: NSObject{
                 return
             }
             
-            // To be Deleted
-            print(data)
+            // To be Deleted: Debug
+            //print(data)
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 
@@ -303,12 +296,13 @@ class Client: NSObject{
         }
         
         if !skip.isEmpty {
-            skipUrl = "skip=\(skip)"
+            skipUrl = "&skip=\(skip)"
         }
         
         if !order.isEmpty {
-            orderUrl = "order=\(order)"
+            orderUrl = "&order=\(order)"
         }
+        
         
         let parametersUrl = "?" + limitUrl + skipUrl + orderUrl
         

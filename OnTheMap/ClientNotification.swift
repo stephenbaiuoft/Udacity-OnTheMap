@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 extension Client {
-    
 
     
     // let chosenViewController received notification, addMapPinWillShow

@@ -31,7 +31,7 @@ extension Client{
         let methodString = ParseMethod.GetStudentLocation + "?" + parameterString!
 
         
-        let task = taskForGetLocation (method: methodString, parameters: nil) { (data, error)
+        let task = taskForGetLocation (method: methodString) { (data, error)
             in
             
             if error != nil {
@@ -115,14 +115,10 @@ extension Client{
         // existed we should do Put request
         else {
             guard let jsonBodyData = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationText)\", \"mediaURL\": \"\(mediaUrl)\",\"latitude\": \(lat!), \"longitude\": \(long!)}".data(using: String.Encoding.utf8) else {
-                
                 print("Failed to convert to JSON data")
                 return
                 
             }
-             let str = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationText)\", \"mediaURL\": \"\(mediaUrl)\",\"latitude\": \(lat!), \"longitude\": \(long!)}"
-            
-            print("jsonBodyDataStr:", str)
             
             let method = ParseMethod.PostStudentLocation + "/" + objectId!
             
@@ -146,7 +142,7 @@ extension Client{
     // data module for getting studentLocation information from PARSE
     func getStudentLocationsFromParse(completionHandlerForGetLocations: @escaping (_ success: Bool) -> Void) {
         
-        let task = Client.sharedInstance().taskForGetLocation( method: ParseMethod.GetStudentLocation, parameters: nil) { (data, error) in
+        let task = Client.sharedInstance().taskForGetLocation( method: ParseMethod.GetStudentLocation) { (data, error) in
             // an error occured
             func displayError(_ error: String) {
                 print("Error in updateMapPin: " + error)
@@ -164,6 +160,8 @@ extension Client{
                     return
                 }
                 
+                // Debug
+                print("Received # of studentLocations: ", mapPinResults.count)
                 // update Client mapPins data here
                 self.mapPins = MapPin.locationsFromResults(results: mapPinResults)
                 completionHandlerForGetLocations(true)
@@ -174,12 +172,12 @@ extension Client{
     }
     
     // begin to save data to Client by receiving JSON map annotation information from PARSE
-    func updateMapView(mapView: MKMapView) {
+    func updateMapView(hostController: MapViewController) {
         getStudentLocationsFromParse { (success) in
-            if success {
-                self.updateMapPin(mapView: mapView)
+            if success {                
+                self.updateMapPin(mapView: hostController.mapView)
             } else {
-                print("Error: getting locations from PARSE")
+                Client.sharedInstance().showAlert(hostController: hostController, warningMsg: "Failed to get studentLocation information", action1Msg: nil, action2Msg: nil)
             }
         }
         

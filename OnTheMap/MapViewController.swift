@@ -27,14 +27,14 @@ class MapViewController: UIViewController {
         mapView.delegate = self
 
         // Retriving location information
-        Client.sharedInstance().updateMapView(mapView: mapView)
+        Client.sharedInstance().updateMapView(hostController: self)
         
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // update ClientView every single time!!!
-        Client.sharedInstance().updateMapView(mapView: mapView)
+        Client.sharedInstance().updateMapView(hostController: self)
     }
     
     @IBAction func createLocation(sender: Any) {
@@ -42,7 +42,7 @@ class MapViewController: UIViewController {
         Client.sharedInstance().checkSubmit { (existed, error) in
             
             if existed == nil {
-                print("Error in Processing Get Location")
+                Client.sharedInstance().showAlert(hostController: self, warningMsg: "Failed to Update", action1Msg: nil, action2Msg: nil)
             }
             else {
                 DispatchQueue.main.async {
@@ -50,7 +50,6 @@ class MapViewController: UIViewController {
                         // set existed as true
                         self.existed = true
                         self.showAlert()
-                        
                     }
                     else {
                         self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
@@ -67,7 +66,7 @@ class MapViewController: UIViewController {
                     if success {
                         self.dismiss(animated: true, completion: nil)
                     } else {
-                        print("Problem Logging Out")
+                        Client.sharedInstance().showAlert(hostController: self, warningMsg: "Failed to Logout", action1Msg: nil, action2Msg: nil)
                     }
                 }
                 
@@ -154,14 +153,9 @@ extension MapViewController {
     // note this function has to be declared here!!! Because of NSNotificationCenter add MapViewController as observer
     
     func addedMapPinWillShow(_ notification: NSNotification) {
-        print("Received a notification!")
-        // append the latest annotation
-        let controller = notification.object as? AddLocationViewController
-        
-        print("MapViewVC Received Notif: Before updating")
+        print("Received a notification!")        
         // re-trieve data from PARSE again
-        Client.sharedInstance().updateMapView(mapView: mapView)
-        print("MapViewVC Received Notif: finished updating")
+        Client.sharedInstance().updateMapView(hostController: self)
         // re-move self as an observer
         Client.sharedInstance().unsubscribeFromAddLocationViewController(chosenViewController: self)
         print("Done removing MapViewController as Observer")
