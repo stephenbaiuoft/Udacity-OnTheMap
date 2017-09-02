@@ -19,11 +19,9 @@
 		DC322ED61F4FAACC006FF50B /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED51F4FAACC006FF50B /* Client.swift */; };
 		DC322ED81F4FB24A006FF50B /* ClientConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED71F4FB24A006FF50B /* ClientConstant.swift */; };
 		DC322EDA1F4FD858006FF50B /* ClientRequestHandleMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC322ED91F4FD858006FF50B /* ClientRequestHandleMethods.swift */; };
-		DC4630651F53A0860095D9C9 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */; };
 		DC7697111F578B810056B60D /* ClientNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7697101F578B810056B60D /* ClientNotification.swift */; };
 		DC7697131F57A1F20056B60D /* MapListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7697121F57A1F20056B60D /* MapListTableViewController.swift */; };
 		DC7CC70E1F547DE500777EF7 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CC70D1F547DE500777EF7 /* MapViewDelegate.swift */; };
-		DC7CC7101F548AC000777EF7 /* AddLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */; };
 		DCC3802F1F58F2BB00C7E446 /* ClientAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC3802E1F58F2BB00C7E446 /* ClientAlert.swift */; };
 		DCC380311F5910B400C7E446 /* ClientViewControllerMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC380301F5910B400C7E446 /* ClientViewControllerMethods.swift */; };
 		DCC380331F59123600C7E446 /* ClientUrlTaskMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC380321F59123600C7E446 /* ClientUrlTaskMethods.swift */; };
@@ -69,11 +67,9 @@
 		DC322ED51F4FAACC006FF50B /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		DC322ED71F4FB24A006FF50B /* ClientConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientConstant.swift; sourceTree = "<group>"; };
 		DC322ED91F4FD858006FF50B /* ClientRequestHandleMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientRequestHandleMethods.swift; sourceTree = "<group>"; };
-		DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		DC7697101F578B810056B60D /* ClientNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientNotification.swift; sourceTree = "<group>"; };
 		DC7697121F57A1F20056B60D /* MapListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListTableViewController.swift; sourceTree = "<group>"; };
 		DC7CC70D1F547DE500777EF7 /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
-		DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationDelegate.swift; sourceTree = "<group>"; };
 		DCC3802E1F58F2BB00C7E446 /* ClientAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientAlert.swift; sourceTree = "<group>"; };
 		DCC380301F5910B400C7E446 /* ClientViewControllerMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientViewControllerMethods.swift; sourceTree = "<group>"; };
 		DCC380321F59123600C7E446 /* ClientUrlTaskMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientUrlTaskMethods.swift; sourceTree = "<group>"; };
@@ -177,7 +173,6 @@
 				DCC3803F1F5A0C6900C7E446 /* MapViewViewController */,
 				DC7697141F57A3820056B60D /* TableViewController */,
 				DC322E5E1F4F8786006FF50B /* LoginViewController.swift */,
-				DCC3803E1F5A0C4600C7E446 /* Deprecated VC */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -252,15 +247,6 @@
 				DCC3803C1F5A091600C7E446 /* DetailedMapViewController.swift */,
 			);
 			name = DetailedMapView;
-			sourceTree = "<group>";
-		};
-		DCC3803E1F5A0C4600C7E446 /* Deprecated VC */ = {
-			isa = PBXGroup;
-			children = (
-				DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */,
-				DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */,
-			);
-			name = "Deprecated VC";
 			sourceTree = "<group>";
 		};
 		DCC3803F1F5A0C6900C7E446 /* MapViewViewController */ = {
@@ -411,7 +397,6 @@
 			files = (
 				DCC380381F59FBEB00C7E446 /* SubmitLocationViewController.swift in Sources */,
 				DCC3803D1F5A091600C7E446 /* DetailedMapViewController.swift in Sources */,
-				DC7CC7101F548AC000777EF7 /* AddLocationDelegate.swift in Sources */,
 				DC322ED81F4FB24A006FF50B /* ClientConstant.swift in Sources */,
 				DCC3802F1F58F2BB00C7E446 /* ClientAlert.swift in Sources */,
 				DCC380331F59123600C7E446 /* ClientUrlTaskMethods.swift in Sources */,
@@ -423,7 +408,6 @@
 				DC7697131F57A1F20056B60D /* MapListTableViewController.swift in Sources */,
 				DCC380311F5910B400C7E446 /* ClientViewControllerMethods.swift in Sources */,
 				DC7CC70E1F547DE500777EF7 /* MapViewDelegate.swift in Sources */,
-				DC4630651F53A0860095D9C9 /* AddLocationViewController.swift in Sources */,
 				DC7697111F578B810056B60D /* ClientNotification.swift in Sources */,
 				DC322E5D1F4F8786006FF50B /* AppDelegate.swift in Sources */,
 				DC31E3A81F513AC100F4C521 /* MapViewController.swift in Sources */,
