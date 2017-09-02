@@ -28,6 +28,9 @@
 		DCC380311F5910B400C7E446 /* ClientViewControllerMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC380301F5910B400C7E446 /* ClientViewControllerMethods.swift */; };
 		DCC380331F59123600C7E446 /* ClientUrlTaskMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC380321F59123600C7E446 /* ClientUrlTaskMethods.swift */; };
 		DCC380351F59345C00C7E446 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC380341F59345C00C7E446 /* StudentInformation.swift */; };
+		DCC380381F59FBEB00C7E446 /* SubmitLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC380371F59FBEB00C7E446 /* SubmitLocationViewController.swift */; };
+		DCC3803A1F59FCB500C7E446 /* SubmitLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC380391F59FCB500C7E446 /* SubmitLocationDelegate.swift */; };
+		DCC3803D1F5A091600C7E446 /* DetailedMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC3803C1F5A091600C7E446 /* DetailedMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +78,9 @@
 		DCC380301F5910B400C7E446 /* ClientViewControllerMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientViewControllerMethods.swift; sourceTree = "<group>"; };
 		DCC380321F59123600C7E446 /* ClientUrlTaskMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientUrlTaskMethods.swift; sourceTree = "<group>"; };
 		DCC380341F59345C00C7E446 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
+		DCC380371F59FBEB00C7E446 /* SubmitLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitLocationViewController.swift; sourceTree = "<group>"; };
+		DCC380391F59FCB500C7E446 /* SubmitLocationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitLocationDelegate.swift; sourceTree = "<group>"; };
+		DCC3803C1F5A091600C7E446 /* DetailedMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,12 +172,12 @@
 		DC322E8B1F4F882E006FF50B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DCC3803B1F5A08FD00C7E446 /* DetailedMapView */,
+				DCC380361F59F63D00C7E446 /* SubLocationViewController */,
+				DCC3803F1F5A0C6900C7E446 /* MapViewViewController */,
 				DC7697141F57A3820056B60D /* TableViewController */,
 				DC322E5E1F4F8786006FF50B /* LoginViewController.swift */,
-				DC31E3A71F513AC100F4C521 /* MapViewController.swift */,
-				DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */,
-				DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */,
-				DC7CC70D1F547DE500777EF7 /* MapViewDelegate.swift */,
+				DCC3803E1F5A0C4600C7E446 /* Deprecated VC */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -229,6 +235,41 @@
 				DC7697121F57A1F20056B60D /* MapListTableViewController.swift */,
 			);
 			name = TableViewController;
+			sourceTree = "<group>";
+		};
+		DCC380361F59F63D00C7E446 /* SubLocationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DCC380371F59FBEB00C7E446 /* SubmitLocationViewController.swift */,
+				DCC380391F59FCB500C7E446 /* SubmitLocationDelegate.swift */,
+			);
+			name = SubLocationViewController;
+			sourceTree = "<group>";
+		};
+		DCC3803B1F5A08FD00C7E446 /* DetailedMapView */ = {
+			isa = PBXGroup;
+			children = (
+				DCC3803C1F5A091600C7E446 /* DetailedMapViewController.swift */,
+			);
+			name = DetailedMapView;
+			sourceTree = "<group>";
+		};
+		DCC3803E1F5A0C4600C7E446 /* Deprecated VC */ = {
+			isa = PBXGroup;
+			children = (
+				DC4630641F53A0860095D9C9 /* AddLocationViewController.swift */,
+				DC7CC70F1F548AC000777EF7 /* AddLocationDelegate.swift */,
+			);
+			name = "Deprecated VC";
+			sourceTree = "<group>";
+		};
+		DCC3803F1F5A0C6900C7E446 /* MapViewViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DC31E3A71F513AC100F4C521 /* MapViewController.swift */,
+				DC7CC70D1F547DE500777EF7 /* MapViewDelegate.swift */,
+			);
+			name = MapViewViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,6 +409,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCC380381F59FBEB00C7E446 /* SubmitLocationViewController.swift in Sources */,
+				DCC3803D1F5A091600C7E446 /* DetailedMapViewController.swift in Sources */,
 				DC7CC7101F548AC000777EF7 /* AddLocationDelegate.swift in Sources */,
 				DC322ED81F4FB24A006FF50B /* ClientConstant.swift in Sources */,
 				DCC3802F1F58F2BB00C7E446 /* ClientAlert.swift in Sources */,
@@ -384,6 +427,7 @@
 				DC7697111F578B810056B60D /* ClientNotification.swift in Sources */,
 				DC322E5D1F4F8786006FF50B /* AppDelegate.swift in Sources */,
 				DC31E3A81F513AC100F4C521 /* MapViewController.swift in Sources */,
+				DCC3803A1F59FCB500C7E446 /* SubmitLocationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

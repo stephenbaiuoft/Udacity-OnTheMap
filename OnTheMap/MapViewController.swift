@@ -13,7 +13,7 @@ class MapViewController: UIViewController {
     // MARK: Variable declaration
     let locationManager = CLLocationManager()
     let localSearch: MKLocalSearch! = nil
-    let gotoAddLocationIdentifier = "addLocationIdentifier"
+    
     var existed: Bool = false
     var annotation: MKAnnotation?
     
@@ -39,20 +39,20 @@ class MapViewController: UIViewController {
     
     @IBAction func createLocation(sender: Any) {
         // check if previous submission exists
-        Client.sharedInstance().checkSubmit { (existed, error) in
+        Client.sharedInstance().checkSubmit { (postedLocation, errorString) in
             
-            if existed == nil {
-                Client.sharedInstance().showAlert(hostController: self, warningMsg: "Failed to Update", action1Msg: nil, action2Msg: nil)
+            // errorString not nil ==> Show UIAlert
+            if errorString != nil {
+                Client.sharedInstance().showAlert(hostController: self, warningMsg: errorString!)
             }
             else {
                 DispatchQueue.main.async {
-                    if existed! {
-                        // set existed as true
-                        self.existed = true
-                        self.showAlert()
+                    if postedLocation {
+                        self.showAlertBox()
                     }
+                    // No data is posted, go directly
                     else {
-                        self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
+                        self.performSegue(withIdentifier: Client.SegueIdentifierConstant.TabMapVCToLocationVC, sender: self)
                     }
                 }
             }
@@ -66,7 +66,7 @@ class MapViewController: UIViewController {
                     if success {
                         self.dismiss(animated: true, completion: nil)
                     } else {
-                        Client.sharedInstance().showAlert(hostController: self, warningMsg: "Failed to Logout", action1Msg: nil, action2Msg: nil)
+                        Client.sharedInstance().showAlert(hostController: self, warningMsg: Client.ClientError.Logout)
                     }
                 }
                 
@@ -74,35 +74,20 @@ class MapViewController: UIViewController {
     }
     
     
-    // MARK: Segue Region
-    
-    // handle necessary information
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == gotoAddLocationIdentifier){
-            let controller = segue.destination as! AddLocationViewController
-            controller.existed = existed
-        }
-    }
-
-    
-    
-    
     // MARK: Back end logic function region
     
     // Show Alert UI
-    func showAlert() {
+    func showAlertBox() {
         let alertController = UIAlertController(title: "", message: "You Have Already Posted a Student Location. Would You Like to Overwrite Your Current Location?", preferredStyle: UIAlertControllerStyle.alert)
         let overWriteAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             
             // MARK: Overwrite Section on MapViewController
-            print("Overwrite Pressed")
-            // let mapViewController know/listen to mapPin is added event
-            Client.sharedInstance().subscribeToAddLocationViewController(chosenViewController: self, type: 0)
-            self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
+            Client.sharedInstance().log("Overwrite Pressed")
+            self.performSegue(withIdentifier: Client.SegueIdentifierConstant.TabMapVCToLocationVC, sender: self)
             
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
-            print("Cancel Pressed")
+             Client.sharedInstance().log("Cancel Pressed")
         }
         
         alertController.addAction(overWriteAction)
@@ -110,6 +95,7 @@ class MapViewController: UIViewController {
         
         present(alertController, animated: true, completion: nil)
     }
+    
     
     // check if using Default User Location or set a default
     func setLocationAuthorization() {
@@ -120,7 +106,7 @@ class MapViewController: UIViewController {
             let coordinateRegion = MKCoordinateRegionMakeWithDistance(initialLocation.coordinate,
                                                                       regionRadius, regionRadius)
             mapView.setRegion(coordinateRegion, animated: true)
-            print("finished setting up map")
+            Client.sharedInstance().log("finished setting up map")
         }
         
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse
@@ -149,20 +135,21 @@ class MapViewController: UIViewController {
 
 // Add Observer
 
-extension MapViewController {
+// Deprecated No Longer Used in the Patched Desing
+//extension MapViewController {
     // note this function has to be declared here!!! Because of NSNotificationCenter add MapViewController as observer
-    
-    func addedMapPinWillShow(_ notification: NSNotification) {
-        print("Received a notification!")        
-        // re-trieve data from PARSE again
-        Client.sharedInstance().updateMapView(hostController: self)
-        // re-move self as an observer
-        Client.sharedInstance().unsubscribeFromAddLocationViewController(chosenViewController: self)
-        print("Done removing MapViewController as Observer")
-    }
+//    
+//    func addedMapPinWillShow(_ notification: NSNotification) {
+//        Client.sharedInstance().log("Received a notification!")
+//        // re-trieve data from PARSE again
+//        Client.sharedInstance().updateMapView(hostController: self)
+//        // re-move self as an observer
+//        Client.sharedInstance().unsubscribeFromAddLocationViewController(chosenViewController: self)
+//        Client.sharedInstance().log("Done removing MapViewController as Observer")
+//    }
 
 
-}
+//}
 
 
 

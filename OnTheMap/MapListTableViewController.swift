@@ -10,8 +10,7 @@ import UIKit
 
 class MapListTableViewController: UITableViewController {
     let tableCellIdentifier = "MapListTableViewCell"
-    let gotoAddLocationIdentifier = "gotoAddLocationIdentifierTableVC"
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,20 +64,20 @@ class MapListTableViewController: UITableViewController {
     // Outlet Section
     @IBAction func createLocation(sender: Any) {
         // check if previous submission exists
-        Client.sharedInstance().checkSubmit { (existed, error) in
+        Client.sharedInstance().checkSubmit { (postedLocation, error) in
             
-            if existed == nil {
-                print("Error in Processing Get Location")
+            if error != nil {
+                Client.sharedInstance().showAlert(hostController: self, warningMsg: error!)
+                
             }
             else {
                 DispatchQueue.main.async {
-                    if existed! {
+                    if postedLocation {
                         // set existed as true
                         self.showAlert()
-                        
                     }
                     else {
-                        self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
+                        self.performSegue(withIdentifier: Client.SegueIdentifierConstant.TableVCToLocationVC, sender: self)
                     }
                 }
             }
@@ -107,14 +106,13 @@ class MapListTableViewController: UITableViewController {
         let overWriteAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             
             // MARK: Overwrite Section on MapViewController
-            print("Overwrite Pressed")
+            Client.sharedInstance().log("Overwrite Pressed")
             // let mapViewController know/listen to mapPin is added event
-            Client.sharedInstance().subscribeToAddLocationViewController(chosenViewController: self, type: 1)
-            self.performSegue(withIdentifier: self.gotoAddLocationIdentifier, sender: self)
+            self.performSegue(withIdentifier: Client.SegueIdentifierConstant.TableVCToLocationVC, sender: self)
             
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
-            print("Cancel Pressed")
+            Client.sharedInstance().log("Cancel Pressed")
         }
         
         alertController.addAction(overWriteAction)
