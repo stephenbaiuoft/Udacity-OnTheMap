@@ -53,6 +53,10 @@
                                     <action selector="loginUdacity:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MS3-UG-Dk1"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="SLZ-WM-mgn">
+                                <rect key="frame" x="177.5" y="467" width="20" height="20"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w9s-T2-41l" userLabel="Facebook Login Button">
                                 <rect key="frame" x="62.5" y="595" width="250" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -83,6 +87,7 @@
                             <constraint firstItem="jqY-SO-sUT" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="Dvl-w0-Eub"/>
                             <constraint firstItem="SoZ-5h-dPa" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="J8J-3N-0lL"/>
                             <constraint firstItem="SoZ-5h-dPa" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="Li6-aW-sHg"/>
+                            <constraint firstItem="SLZ-WM-mgn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N6Q-MK-Mwd"/>
                             <constraint firstItem="jTP-dQ-FIP" firstAttribute="top" secondItem="DmU-Ha-VG1" secondAttribute="bottom" constant="30" id="Nxu-kC-iZu"/>
                             <constraint firstItem="DmU-Ha-VG1" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="O1M-QX-W5Q"/>
                             <constraint firstItem="DmU-Ha-VG1" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="SAN-bn-hi8"/>
@@ -96,6 +101,7 @@
                             <constraint firstAttribute="trailing" secondItem="jTP-dQ-FIP" secondAttribute="trailing" constant="30" id="md8-MM-eka"/>
                             <constraint firstItem="jqY-SO-sUT" firstAttribute="top" secondItem="SoZ-5h-dPa" secondAttribute="bottom" constant="30" id="mfW-zb-hjy"/>
                             <constraint firstItem="DmU-Ha-VG1" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="ndc-i1-jsn"/>
+                            <constraint firstItem="SLZ-WM-mgn" firstAttribute="top" secondItem="SoZ-5h-dPa" secondAttribute="bottom" constant="10" id="nut-LT-KYT"/>
                             <constraint firstItem="SoZ-5h-dPa" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="qZs-ZH-guz"/>
                             <constraint firstItem="nmg-9f-XMP" firstAttribute="top" secondItem="jTP-dQ-FIP" secondAttribute="bottom" constant="20" id="rai-FT-Z9A"/>
                             <constraint firstItem="w9s-T2-41l" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="s0v-iX-3gw"/>
@@ -113,6 +119,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="SLZ-WM-mgn" id="a4U-HW-CKP"/>
                         <outlet property="emailTextField" destination="jTP-dQ-FIP" id="VC7-nv-aJO"/>
                         <outlet property="facebookLoginButton" destination="w9s-T2-41l" id="Lb4-pt-DiP"/>
                         <outlet property="passwordTextField" destination="nmg-9f-XMP" id="Bib-AW-wkg"/>
@@ -161,11 +168,16 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sxY-Bw-Zlw">
                                 <rect key="frame" x="16" y="64" width="343" height="554"/>
                             </mapView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lKE-V1-7oF">
+                                <rect key="frame" x="178" y="331" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sxY-Bw-Zlw" firstAttribute="trailing" secondItem="OW6-IX-8Th" secondAttribute="trailingMargin" id="0WF-as-Rk9"/>
                             <constraint firstItem="sxY-Bw-Zlw" firstAttribute="top" secondItem="DpX-4O-c2m" secondAttribute="bottom" id="1cT-Oe-Gpu"/>
+                            <constraint firstItem="lKE-V1-7oF" firstAttribute="centerX" secondItem="sxY-Bw-Zlw" secondAttribute="centerX" id="DZz-0a-6Z4"/>
+                            <constraint firstItem="lKE-V1-7oF" firstAttribute="centerY" secondItem="sxY-Bw-Zlw" secondAttribute="centerY" id="wKQ-EW-0Ml"/>
                             <constraint firstItem="43b-iH-Vmp" firstAttribute="top" secondItem="sxY-Bw-Zlw" secondAttribute="bottom" id="wh4-M2-VSH"/>
                             <constraint firstItem="sxY-Bw-Zlw" firstAttribute="leading" secondItem="OW6-IX-8Th" secondAttribute="leadingMargin" id="zba-tg-wdZ"/>
                         </constraints>
@@ -183,10 +195,15 @@
                                     <action selector="createLocationWithSender:" destination="wV7-3S-Q0T" id="zrB-Wc-MaZ"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="refresh" id="Mhh-LS-qo5" userLabel="Refresh"/>
+                            <barButtonItem systemItem="refresh" id="Mhh-LS-qo5" userLabel="Refresh">
+                                <connections>
+                                    <action selector="refreshMap" destination="wV7-3S-Q0T" id="sBO-4r-l5U"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="lKE-V1-7oF" id="j0X-XN-J74"/>
                         <outlet property="mapView" destination="sxY-Bw-Zlw" id="XLo-Az-4od"/>
                         <segue destination="bLK-Rx-XxT" kind="show" identifier="segueTabVCToLocationVC" id="okP-cE-YzW"/>
                     </connections>
@@ -241,7 +258,11 @@
                                     <action selector="createLocationWithSender:" destination="YQA-16-FZh" id="6dc-Y7-Mlv"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="refresh" id="b8E-Tj-wrc" userLabel="Refresh"/>
+                            <barButtonItem systemItem="refresh" id="b8E-Tj-wrc" userLabel="Refresh">
+                                <connections>
+                                    <action selector="freshTableWithSender:" destination="YQA-16-FZh" id="HZe-kv-NxA"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>

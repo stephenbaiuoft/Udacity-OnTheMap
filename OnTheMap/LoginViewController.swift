@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var udacityLabel: UILabel!
     
     @IBOutlet weak var facebookLoginButton: UIButton!
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Properties
     var session: URLSession!
@@ -33,6 +33,8 @@ class LoginViewController: UIViewController {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
+        activityIndicator.hidesWhenStopped = true
+                
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,6 +54,9 @@ class LoginViewController: UIViewController {
         } else {
             udacityLabel.text = "Logging"
             Client.sharedInstance().authenticateWithViewController(self, completionHandlerForAuthVC: { (success, errorString) in
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
                 if success {
                         self.completeLogin()
                     
@@ -62,6 +67,9 @@ class LoginViewController: UIViewController {
                     }
                 }
             })
+            
+            // start activityIndicator
+            activityIndicator.startAnimating()
         }
     }
     

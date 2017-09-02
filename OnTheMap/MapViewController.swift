@@ -19,12 +19,15 @@ class MapViewController: UIViewController {
     
     // MARK: Outlet declaration
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         mapView.delegate = self
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
 
         // Retriving location information
         Client.sharedInstance().updateMapView(hostController: self)
@@ -57,6 +60,24 @@ class MapViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    // Reloads data from PARSE and then updates the map
+    @IBAction func refreshMap() {
+        // start activityIndicator
+        activityIndicator.startAnimating()
+        Client.sharedInstance().getStudentLocationsData { (success, errorString) in
+
+            if success {
+                Client.sharedInstance().updateMapView(hostController: self)
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
+            } else {
+                Client.sharedInstance().showAlert(hostController: self, warningMsg: errorString!)
+            }
+        }
+        
     }
     
     @IBAction func logOut(sender: Any) {

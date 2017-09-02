@@ -9,17 +9,64 @@
 import UIKit
 
 class MapListTableViewController: UITableViewController {
+    
+    
     let tableCellIdentifier = "MapListTableViewCell"
+    
+    /// View which contains the loading text and the spinner
+    let loadingView = UIView()
+    
+    /// Spinner shown during load the TableView
+    let spinner = UIActivityIndicatorView()
+    
+    /// Text shown during load the TableView
+    let loadingLabel = UILabel()
+
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setLoadingScreen()
+        spinner.hidesWhenStopped = true
     }
+    
+    // Set the activity indicator into the main view
+    private func setLoadingScreen() {
+        
+        // Sets the view which contains the loading text and the spinner
 
+        let x = (tableView.frame.width / 2)
+        let y = (tableView.frame.height / 2) - (navigationController?.navigationBar.frame.height)!
+        // Sets spinner
+        spinner.activityIndicatorViewStyle = .gray
+        spinner.frame = CGRect(x: x, y: y, width: 30, height: 30)
+        //tableView.addSubview(loadingView)
+        tableView.addSubview(spinner)
+        
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // reload data!
         tableView.reloadData()
+    }
+    
+    @IBAction func freshTable(sender: Any) {
+        spinner.startAnimating()
+        Client.sharedInstance().getStudentLocationsData { (success, errorString) in
+            DispatchQueue.main.async {
+                self.spinner.stopAnimating()
+            }
+            if success {
+                self.tableView.reloadData()
+                
+            } else {
+                Client.sharedInstance().showAlert(hostController: self, warningMsg: errorString!)
+            }
+        }
+        
+
     }
     
     // MARK: - Table view data source
