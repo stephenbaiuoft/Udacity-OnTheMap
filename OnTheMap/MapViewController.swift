@@ -12,7 +12,6 @@ import MapKit
 class MapViewController: UIViewController {
     // MARK: Variable declaration
     let locationManager = CLLocationManager()
-    let localSearch: MKLocalSearch! = nil
     
     var existed: Bool = false
     var annotation: MKAnnotation?
@@ -26,8 +25,7 @@ class MapViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         mapView.delegate = self
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true        
 
         // Retriving location information
         Client.sharedInstance().updateMapView(hostController: self)

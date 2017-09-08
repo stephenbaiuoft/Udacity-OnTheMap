@@ -16,14 +16,14 @@ class SubmitLocationViewController: UIViewController {
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var webUrlTextField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        activityIndicator.hidesWhenStopped = true
         // Delegate
         locationTextField.delegate = self
         webUrlTextField.delegate = self
@@ -65,7 +65,11 @@ class SubmitLocationViewController: UIViewController {
                 url = "https://" + url
             }
             //
+            activityIndicator.startAnimating()
             findLocationOnMap(completionHandlerForFindLocation: { (success, mkPlaceMark) in
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
                 if success {
                     // saves the troulbe of passing through prepare segue loll
                     updateClientVariables(mkPlaceMark: mkPlaceMark!)

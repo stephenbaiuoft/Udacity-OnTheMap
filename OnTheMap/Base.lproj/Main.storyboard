@@ -332,6 +332,10 @@
                                     <action selector="findLocationWithSender:" destination="J2Y-LK-5Yq" eventType="touchUpInside" id="zcc-6w-GDL"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1Mv-9w-EMp">
+                                <rect key="frame" x="169" y="478" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -343,8 +347,10 @@
                             <constraint firstItem="rkc-AS-A17" firstAttribute="width" secondItem="Yj8-y0-Y6r" secondAttribute="width" multiplier="0.7" id="RQy-8n-G5D"/>
                             <constraint firstItem="n0w-Ch-YU7" firstAttribute="centerX" secondItem="rkc-AS-A17" secondAttribute="centerX" id="a04-Eh-kEy"/>
                             <constraint firstItem="n0w-Ch-YU7" firstAttribute="top" secondItem="rkc-AS-A17" secondAttribute="bottom" constant="20" id="bn6-z5-emY"/>
+                            <constraint firstItem="1Mv-9w-EMp" firstAttribute="centerX" secondItem="teD-C4-Hhf" secondAttribute="centerX" id="cbj-Nx-te1"/>
                             <constraint firstItem="DRG-34-P9t" firstAttribute="centerX" secondItem="Yj8-y0-Y6r" secondAttribute="centerX" id="k5f-pF-SeD"/>
                             <constraint firstItem="teD-C4-Hhf" firstAttribute="top" secondItem="n0w-Ch-YU7" secondAttribute="bottom" constant="20" id="nY6-BL-FfQ"/>
+                            <constraint firstItem="1Mv-9w-EMp" firstAttribute="top" secondItem="teD-C4-Hhf" secondAttribute="bottom" constant="10" id="oFm-xS-qzH"/>
                             <constraint firstItem="n0w-Ch-YU7" firstAttribute="height" secondItem="teD-C4-Hhf" secondAttribute="height" id="vhc-Qh-Exa"/>
                             <constraint firstItem="teD-C4-Hhf" firstAttribute="centerX" secondItem="n0w-Ch-YU7" secondAttribute="centerX" id="wtf-Cl-OW3"/>
                             <constraint firstItem="DRG-34-P9t" firstAttribute="top" secondItem="u59-h3-Ivl" secondAttribute="bottom" multiplier="3" constant="8" symbolic="YES" id="zoz-MG-axZ"/>
@@ -358,6 +364,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="1Mv-9w-EMp" id="pdB-Qo-Q2S"/>
                         <outlet property="locationTextField" destination="rkc-AS-A17" id="mhR-Sz-2up"/>
                         <outlet property="webUrlTextField" destination="n0w-Ch-YU7" id="MJ4-RO-80h"/>
                         <segue destination="0UB-rm-SIi" kind="show" identifier="segueToViewVCWithMapView" id="SVV-x8-sd5"/>
