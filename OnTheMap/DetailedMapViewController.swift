@@ -41,7 +41,7 @@ class DetailedMapViewController: UIViewController {
         // Part 1: Submit this location information to PARSE SEVER
         Client.sharedInstance().submitToParse(hostController: self) { (success, errorString) in
             if !success {
-                Client.sharedInstance().showAlert(hostController: self, warningMsg: errorString!)
+                Client.sharedInstance().showAlert(hostController: self, warningMsg: Message.UIError.Submit)
                 return
             } else {
                 // Success!!!

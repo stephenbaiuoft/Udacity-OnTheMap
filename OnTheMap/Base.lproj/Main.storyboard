@@ -73,7 +73,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-u" translatesAutoresizingMaskIntoConstraints="NO" id="Gxh-Sg-i2W">
-                                <rect key="frame" x="147.5" y="50" width="80" height="80"/>
+                                <rect key="frame" x="147.5" y="110" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Vyz-fZ-ond"/>
                                     <constraint firstAttribute="height" constant="80" id="aHw-Vw-CcL"/>
@@ -98,6 +98,7 @@
                             <constraint firstItem="Gxh-Sg-i2W" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eYN-KM-aT2"/>
                             <constraint firstItem="jTP-dQ-FIP" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.07" id="eed-nw-GJY"/>
                             <constraint firstItem="nmg-9f-XMP" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="j8D-8g-k0V"/>
+                            <constraint firstItem="DmU-Ha-VG1" firstAttribute="top" secondItem="Gxh-Sg-i2W" secondAttribute="bottom" constant="10" id="jD8-V8-ShN"/>
                             <constraint firstAttribute="trailing" secondItem="jTP-dQ-FIP" secondAttribute="trailing" constant="30" id="md8-MM-eka"/>
                             <constraint firstItem="jqY-SO-sUT" firstAttribute="top" secondItem="SoZ-5h-dPa" secondAttribute="bottom" constant="30" id="mfW-zb-hjy"/>
                             <constraint firstItem="DmU-Ha-VG1" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="ndc-i1-jsn"/>
@@ -107,7 +108,6 @@
                             <constraint firstItem="w9s-T2-41l" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="s0v-iX-3gw"/>
                             <constraint firstItem="nmg-9f-XMP" firstAttribute="width" secondItem="jTP-dQ-FIP" secondAttribute="width" id="uvQ-4b-P9g"/>
                             <constraint firstItem="jqY-SO-sUT" firstAttribute="centerX" secondItem="jTP-dQ-FIP" secondAttribute="centerX" id="vQc-fG-YiT"/>
-                            <constraint firstItem="Gxh-Sg-i2W" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="wc8-5X-eSs"/>
                             <constraint firstItem="SoZ-5h-dPa" firstAttribute="top" secondItem="nmg-9f-XMP" secondAttribute="bottom" constant="20" id="wcT-IM-HvO"/>
                             <constraint firstItem="nmg-9f-XMP" firstAttribute="height" secondItem="jTP-dQ-FIP" secondAttribute="height" id="z7E-6R-1bb"/>
                         </constraints>
@@ -380,10 +380,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="f3L-OM-0he" userLabel="Full Map View">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eev-qZ-pRz" userLabel="Finish Button">
-                                <rect key="frame" x="56" y="555" width="262.5" height="38"/>
+                                <rect key="frame" x="56" y="550" width="262.5" height="38"/>
                                 <color key="backgroundColor" red="0.3198613628079322" green="0.85732736908746598" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Finish"/>

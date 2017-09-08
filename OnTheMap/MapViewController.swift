@@ -74,7 +74,7 @@ class MapViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                 }
             } else {
-                Client.sharedInstance().showAlert(hostController: self, warningMsg: errorString!)
+                Client.sharedInstance().showAlert(hostController: self, warningMsg: Message.UIError.Data)
             }
         }
         

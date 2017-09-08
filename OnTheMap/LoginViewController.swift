@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
                 } else {
                     DispatchQueue.main.async {
                         self.udacityLabel.text = errorString!
-                        Client.sharedInstance().showAlert(hostController: self, warningMsg: errorString!)
+                        Client.sharedInstance().showAlert(hostController: self, warningMsg: Client.LoginError.AccountError)
                     }
                 }
             })
@@ -90,7 +90,8 @@ extension LoginViewController: UITextFieldDelegate{
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true;
+        textField.resignFirstResponder()
+        return true
     }
     
 }

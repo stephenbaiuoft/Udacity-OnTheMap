@@ -62,7 +62,7 @@ class MapListTableViewController: UITableViewController {
                 self.tableView.reloadData()
                 
             } else {
-                Client.sharedInstance().showAlert(hostController: self, warningMsg: errorString!)
+                Client.sharedInstance().showAlert(hostController: self, warningMsg: Message.UIError.Data)
             }
         }
         

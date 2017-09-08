@@ -9,6 +9,9 @@
 import Foundation
 
 extension Client{
+    struct LoginError{
+        static let AccountError = "Your Email or Password Is Incorrect"
+    }
     
     struct AddLocationError {
         static let LocationTitle = "Location Not Found"
