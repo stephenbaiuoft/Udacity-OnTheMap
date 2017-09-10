@@ -219,11 +219,19 @@ extension Client {
                 return
             }
             
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError(HttpErrorMsg.StatusCode)
-                return
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                if statusCode == 403 {
+                    // 403 meaning it is not correct!
+                    sendError(LoginError.AccountError)
+                    return
+                } else if( statusCode < 200 || statusCode > 299) {
+                    // incorrect status code
+                    sendError(HttpErrorMsg.StatusCode)
+                    return
+                }
             }
             
+            // meaning statusCode is correct
             guard let data = data else {
                 sendError(HttpErrorMsg.DataReturn)
                 return

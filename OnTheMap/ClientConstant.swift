@@ -11,6 +11,7 @@ import Foundation
 extension Client{
     struct LoginError{
         static let AccountError = "Your Email or Password Is Incorrect"
+        static let NetworkError = "There Was an Error With Your Request: Check Network Condition"
     }
     
     struct AddLocationError {

@@ -200,7 +200,12 @@ extension Client{
          loginAuthentication(hostViewController, completionHandlerForAuth: { (success, errorString) in
             // success no
             if( success ){
-                
+//                if(errorString != nil) {
+//                    // in-correct account credential!
+//                    completionHandlerForAuthVC(true, errorString)
+//                    return
+//                }
+//                
                 // Second Step: now get user Account information
                 self.getUserData(uniqueKey: self.uniqueKey!, completionHandlerForUserData: { (success, error) in
                     if success {
@@ -227,7 +232,13 @@ extension Client{
                 
             }
             else{
-                 completionHandlerForAuthVC(false, errorString)
+                // distinguish the two
+                if(errorString == LoginError.AccountError){
+                    completionHandlerForAuthVC(true, errorString)
+                }
+                else{
+                    completionHandlerForAuthVC(false, errorString)
+                }
             }
         })
     
@@ -302,7 +313,8 @@ extension Client{
                     completionHandlerForAuth(true, nil)
                 }
                 else {
-                    completionHandlerForAuth(false, UdacityAccountError.Unregistered)
+                    // correct connection, but there is an error!!!
+                    completionHandlerForAuth(true, UdacityAccountError.Unregistered)
                     return
                 }
                 

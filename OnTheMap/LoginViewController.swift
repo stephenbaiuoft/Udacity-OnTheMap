@@ -58,12 +58,24 @@ class LoginViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                 }
                 if success {
+                    // success and no errorString meaning correct
+                    if(errorString == nil){
                         self.completeLogin()
+                    }
+                    // incorrect account information
+                    else {
+                        DispatchQueue.main.async {
+                            self.udacityLabel.text = errorString!
+                            Client.sharedInstance().showAlert(hostController: self, warningMsg: Client.LoginError.AccountError)
+                        }
+                    }
                     
-                } else {
+                }
+                    // there is an error!!!
+                else {
                     DispatchQueue.main.async {
                         self.udacityLabel.text = errorString!
-                        Client.sharedInstance().showAlert(hostController: self, warningMsg: Client.LoginError.AccountError)
+                        Client.sharedInstance().showAlert(hostController: self, warningMsg: Client.LoginError.NetworkError)
                     }
                 }
             })
